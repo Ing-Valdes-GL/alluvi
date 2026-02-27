@@ -5,122 +5,117 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { useTheme } from '@/components/ThemeProvider'
-import { ArrowLeft, Loader2, Chrome } from 'lucide-react'
+import { ArrowLeft, Loader2, Hash } from 'lucide-react'
 
 export default function LoginPage() {
   const { theme } = useTheme()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState({ type: '', text: '' })
 
-  const signInWithGoogle = async () => {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
     try {
       setLoading(true)
-      setError('')
+      setMessage({ type: '', text: '' })
       
-      const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
+      const { error } = await supabase.auth.signInWithOtp({
+        email: email,
         options: {
-          redirectTo: `${window.location.origin}/home`,
-          queryParams: {
-            access_type: 'offline',
-            prompt: 'consent',
-          }
+          emailRedirectTo: `${window.location.origin}/orders`,
         }
       })
 
       if (error) throw error
+      setMessage({ type: 'success', text: 'Access link transmitted. Check your inbox.' })
     } catch (error: any) {
-      setError(error.message || 'An error occurred during sign in')
+      setMessage({ type: 'error', text: error.message || 'Transmission failed.' })
+    } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className={`min-h-screen flex flex-col items-center justify-center p-4 ${theme === 'dark' ? 'bg-black text-white' : 'bg-gray-50 text-gray-900'}`}>
+    <div className={`min-h-screen flex flex-col p-8 md:p-12 ${theme === 'dark' ? 'bg-[#0A0A0A] text-white' : 'bg-white text-slate-900'} font-mono`}>
       
-      {/* Background Decor */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className={`absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] ${theme === 'dark' ? 'bg-brand-primary/10' : 'bg-brand-primary/5'}`} />
-        <div className={`absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full blur-[120px] ${theme === 'dark' ? 'bg-blue-500/10' : 'bg-blue-500/5'}`} />
-      </div>
+      {/* Top Navigation */}
+      <Link 
+        href="/" 
+        className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity mb-24"
+      >
+        <ArrowLeft size={14} />
+        <span>Exit Terminal</span>
+      </Link>
 
-      <div className="relative z-10 w-full max-w-md">
-        {/* Back Link */}
-        <Link 
-          href="/" 
-          className={`group inline-flex items-center gap-2 mb-8 text-[10px] font-black uppercase tracking-[0.3em] opacity-40 hover:opacity-100 transition-opacity`}
-        >
-          <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-          <span>Return to Terminal</span>
-        </Link>
-
-        {/* Login Card */}
-        <div className={`${theme === 'dark' ? 'bg-gray-900/50 border-white/5' : 'bg-white border-gray-200'} backdrop-blur-xl p-10 md:p-12 rounded-[2.5rem] border shadow-2xl relative overflow-hidden`}>
-          
-          {/* Header */}
-          <div className="text-center mb-10">
-            <div className="flex justify-center mb-6">
-              <div className="w-16 h-16 bg-brand-primary rounded-2xl flex items-center justify-center text-white shadow-2xl shadow-brand-primary/30 rotate-3 group-hover:rotate-0 transition-transform">
-                
-              </div>
-            </div>
-            <h1 className="text-3xl font-black tracking-tighter uppercase mb-2">
-              Identity <span className="text-brand-primary italic">Verification</span>
-            </h1>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
-              Access the medical logistics portal
-            </p>
-          </div>
-
-          {error && (
-            <div className="mb-6 p-4 bg-red-500/10 border border-red-500/20 text-red-500 rounded-xl text-[10px] font-black uppercase tracking-wider flex items-center gap-3">
-              <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
-              {error}
-            </div>
-          )}
-
-          {/* Action Button */}
-          <button
-            onClick={signInWithGoogle}
-            disabled={loading}
-            className={`w-full group relative flex items-center justify-center gap-4 px-8 py-5 rounded-2xl font-black uppercase tracking-[0.2em] transition-all duration-300 disabled:opacity-50
-              ${theme === 'dark' 
-                ? 'bg-white text-black hover:bg-brand-primary hover:text-white' 
-                : 'bg-black text-white hover:bg-brand-primary'}`}
-          >
-            {loading ? (
-              <Loader2 className="w-6 h-6 animate-spin" />
-            ) : (
-              <>
-                <Chrome size={20} />
-                <span className="text-xs">Authorize via Google</span>
-              </>
-            )}
-            
-            {/* Subtle glow effect on hover */}
-            <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 blur-xl bg-brand-primary/30 transition-opacity -z-10" />
-          </button>
-
-          {/* Footer Info */}
-          <div className="mt-10 space-y-4 text-center">
-            <p className="text-[9px] font-black uppercase tracking-[0.15em] opacity-30 leading-relaxed">
-              By accessing this terminal, you acknowledge our <br />
-              <span className="underline cursor-pointer hover:text-brand-primary transition-colors">Security Protocols</span> & <span className="underline cursor-pointer hover:text-brand-primary transition-colors">Privacy Policy</span>
-            </p>
-            
-            <div className="pt-6 border-t border-white/5 flex justify-center gap-6 opacity-20">
-                <div className="w-2 h-2 rounded-full bg-current" />
-                <div className="w-2 h-2 rounded-full bg-current" />
-                <div className="w-2 h-2 rounded-full bg-current" />
-            </div>
-          </div>
+      <div className="flex-1 flex flex-col justify-center max-w-sm mx-auto w-full">
+        {/* Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-black uppercase italic tracking-tighter mb-4 leading-none">
+            User <span className="text-[#FFA52F]">Access</span>
+          </h1>
+          <p className="text-[10px] font-black uppercase tracking-widest opacity-30 leading-relaxed">
+            Authentication required to initialize user session.
+          </p>
         </div>
 
-        {/* Support Note */}
-        <p className="text-center mt-8 text-[10px] font-black uppercase tracking-widest opacity-30">
-          Locked out? <span className="text-brand-primary cursor-pointer">Contact System Admin</span>
-        </p>
+        {/* Status Message */}
+        {message.text && (
+          <div className={`mb-8 text-[10px] font-black uppercase tracking-widest p-4 border ${
+            message.type === 'error' ? 'border-red-500/50 text-red-500' : 'border-[#FFA52F]/50 text-[#FFA52F]'
+          }`}>
+            {message.type === 'error' ? '>> ERROR: ' : '>> SUCCESS: '} {message.text}
+          </div>
+        )}
+
+        {/* Simplified Form */}
+        <form onSubmit={handleLogin} className="space-y-8">
+          <div className="space-y-2">
+            <label className="text-[9px] font-black uppercase tracking-[0.3em] opacity-30 ml-1">Identify via Email</label>
+            <input 
+              type="email"
+              required
+              placeholder="USER@ALLUVICARE.COM"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={`w-full bg-transparent border-b-2 py-4 text-sm font-bold outline-none transition-all uppercase placeholder:opacity-10 ${
+                theme === 'dark' ? 'border-white/10 focus:border-[#FFD363]' : 'border-slate-200 focus:border-[#FFA52F]'
+              }`}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className={`w-full flex items-center justify-between px-8 py-5 rounded-none font-black uppercase text-[11px] tracking-[0.3em] transition-all shadow-xl active:scale-95
+              ${theme === 'dark' 
+                ? 'bg-[#FFA52F] text-black hover:bg-[#FFD363]' 
+                : 'bg-slate-900 text-white hover:bg-[#FFA52F]'}`}
+          >
+            {loading ? (
+              <Loader2 className="w-5 h-5 animate-spin mx-auto" />
+            ) : (
+              <>
+                <span>Request Code</span>
+                <Hash size={16} className="opacity-50" />
+              </>
+            )}
+          </button>
+        </form>
+
+        {/* Footer Info */}
+        <div className="mt-24 space-y-4">
+          <div className={`h-[1px] w-12 ${theme === 'dark' ? 'bg-[#FFA52F]/30' : 'bg-slate-200'}`} />
+          <p className="text-[9px] font-black uppercase tracking-widest opacity-20 leading-loose">
+            Secure link protocol v2.4 <br />
+            System Status: Operational
+          </p>
+        </div>
+      </div>
+
+      {/* Decorative side text */}
+      <div className={`fixed bottom-12 right-12 text-[10px] font-black opacity-5 rotate-90 origin-right uppercase tracking-[0.5em] pointer-events-none hidden md:block`}>
+        Identity_Verification_Portal
       </div>
     </div>
   )

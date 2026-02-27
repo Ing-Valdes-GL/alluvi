@@ -15,25 +15,50 @@ export default function Header() {
   const pathname = usePathname()
   const [isAdmin, setIsAdmin] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  
+  // --- ÉTAT DU PANIER ---
+  const [cartCount, setCartCount] = useState(0)
+
+  // 1. Fonction pour calculer le nombre total d'articles
+  const updateCartBadge = () => {
+    if (typeof window !== 'undefined') {
+      const savedCart = JSON.parse(localStorage.getItem('cart') || '[]')
+      const totalItems = savedCart.reduce((acc: number, item: any) => acc + (item.quantity || 0), 0)
+      setCartCount(totalItems)
+    }
+  }
 
   useEffect(() => {
+    // Initialisation au montage
+    updateCartBadge()
+
+    // Écouter l'événement personnalisé déclenché par la page Cart ou Products
+    window.addEventListener('cart-updated', updateCartBadge)
+    
+    // Écouter les changements venant d'autres onglets
+    window.addEventListener('storage', updateCartBadge)
+
     const checkAdmin = async () => {
       const { data: { session } } = await supabase.auth.getSession()
       if (session?.user) {
-        // Option 1: Vérification via la table profiles (ton code actuel)
         const { data: profile } = await supabase
           .from('profiles')
           .select('is_admin')
           .eq('id', session.user.id)
           .single()
         
-        // Option 2 (Sécurité supplémentaire) : Vérification par email direct
         const isEmailAdmin = session.user.email === 'doungmolagoungvaldes@gmail.com'
-        
         setIsAdmin(!!profile?.is_admin || isEmailAdmin)
       }
     }
+
     checkAdmin()
+
+    // Nettoyage des écouteurs
+    return () => {
+      window.removeEventListener('cart-updated', updateCartBadge)
+      window.removeEventListener('storage', updateCartBadge)
+    }
   }, [])
 
   const navLinks = [
@@ -77,11 +102,10 @@ export default function Header() {
             )
           })}
 
-          {/* BOUTON ADMIN : Style "Access Grant" */}
           {isAdmin && (
             <Link
               href="/admin"
-              className={`ml-2 flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-brand-primary/30 text-brand-primary bg-brand-primary/5 hover:bg-brand-primary hover:text-white transition-all animate-pulse hover:animate-none`}
+              className="ml-2 flex items-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest border border-brand-primary/30 text-brand-primary bg-brand-primary/5 hover:bg-brand-primary hover:text-white transition-all animate-pulse hover:animate-none"
             >
               <ShieldCheck size={14} />
               Admin Panel
@@ -91,16 +115,17 @@ export default function Header() {
 
         {/* ICONES DE DROITE */}
         <div className="flex items-center gap-2">
-          <div className="hidden md:flex items-center gap-1 mr-2 px-3 py-1.5 bg-gray-500/5 rounded-full border border-white/5">
-            <button className="p-2 rounded-full hover:bg-white/10 transition-colors opacity-50 hover:opacity-100">
-              <Search size={18} />
-            </button>
+          <div className="flex items-center gap-1 mr-2 px-3 py-1.5 bg-gray-500/5 rounded-full border border-white/5">
+            
 
-            <Link href="/cart" className="p-2 rounded-full hover:bg-white/10 transition-colors relative opacity-50 hover:opacity-100">
-              <ShoppingCart size={18} />
-              <span className="absolute top-0 right-0 bg-brand-primary text-white text-[8px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center shadow-lg">
-                0
-              </span>
+            {/* BADGE ACTUALISÉ ICI */}
+            <Link href="/cart" className="p-2 rounded-full hover:bg-white/10 transition-colors relative group">
+              <ShoppingCart size={18} className="opacity-50 group-hover:opacity-100 transition-opacity" />
+              {cartCount > 0 && (
+                <span className="absolute top-0 right-0 bg-brand-primary text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center shadow-lg animate-in zoom-in">
+                  {cartCount}
+                </span>
+              )}
             </Link>
           </div>
 
