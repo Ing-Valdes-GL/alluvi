@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
     // ENVOI RÉEL VIA RESEND
     const { data, error } = await resend.emails.send({
-      from: 'Alluvi Health-Care <onboarding@resend.dev>', // Ou ton domaine vérifié
+      from: 'Alluvi Health-Care <support@alluvihealth.store>', // Ou ton domaine vérifié
       to: [order.email_address],
       subject: subject,
       html: emailContent,
