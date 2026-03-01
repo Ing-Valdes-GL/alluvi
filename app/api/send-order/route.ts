@@ -72,7 +72,7 @@ export async function POST(req: Request) {
     `;
 
     const data = await resend.emails.send({
-      from: 'Alluvicare Orders <support@alluvihealth.store>', // Remplace par ton domaine vérifié sur Resend
+      from: 'Alluvicare Orders <contact@support.alluvihealth.store>', // Remplace par ton domaine vérifié sur Resend
       to: [email],
       subject: `Your Alluvicare Order Receipt #${orderRef}`,
       html: htmlContent,
