@@ -131,7 +131,7 @@ export default function HomePage() {
                <div className="absolute left-0 top-0 bottom-0 w-24 bg-[#050A30] hidden md:block" style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }} />
                <div className="relative z-10 flex flex-col items-center">
                  <h4 className="text-white text-7xl font-black opacity-40 absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg]">Alluvi Labs</h4>
-                 <img src="/phone-app.png" className="w-48 lg:w-64 drop-shadow-2xl translate-y-8" alt="App Preview" />
+                 <img src="/phone-app.png" className="w-70 lg:w-64 drop-shadow-2xl translate-y-8" alt="App Preview" />
                </div>
             </div>
           </div>
