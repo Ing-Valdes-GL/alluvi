@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react' // Ajout de Suspense
 import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase, ChatConversation, ChatMessage } from '@/lib/supabase'
 import { useTheme } from '@/components/ThemeProvider'
@@ -8,6 +8,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { Send, User, Check, CheckCheck, Search, Paperclip, MessageSquare } from 'lucide-react'
 
+// --- Types ---
 interface ConversationWithUser extends ChatConversation {
   profiles?: {
     full_name: string
@@ -17,7 +18,8 @@ interface ConversationWithUser extends ChatConversation {
   unread_count?: number
 }
 
-export default function AdminChatPage() {
+// --- Composant Principal avec la logique ---
+function ChatInterface() {
   const { theme } = useTheme()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -41,7 +43,6 @@ export default function AdminChatPage() {
     checkAdmin()
   }, [])
 
-  // Restoration logic and effect hooks...
   useEffect(() => {
     const chatIdFromUrl = searchParams.get('chatId')
     if (chatIdFromUrl && conversations.length > 0 && !selectedConversation) {
@@ -359,7 +360,7 @@ export default function AdminChatPage() {
                 <div className="w-24 h-24 bg-brand-primary/10 rounded-full flex items-center justify-center mb-6">
                     <MessageSquare size={48} className="text-brand-primary" />
                 </div>
-                <h2 className="text-xl font-black">SUPPORT VERTEX BIOLABS</h2>
+                <h2 className="text-xl font-black">SUPPORT DASHBOARD</h2>
                 <p className="max-w-xs text-sm">Veuillez sélectionner une conversation pour commencer l'assistance client.</p>
               </div>
             )}
@@ -368,5 +369,14 @@ export default function AdminChatPage() {
       </div>
       <Footer />
     </div>
+  )
+}
+
+// --- Export par défaut avec Suspense pour fixer l'erreur de build ---
+export default function AdminChatPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-white italic text-gray-400">Loading Support Interface...</div>}>
+      <ChatInterface />
+    </Suspense>
   )
 }

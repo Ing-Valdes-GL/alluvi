@@ -1,14 +1,15 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Suspense } from 'react' // Ajout de Suspense
 import { useRouter } from 'next/navigation'
 import { supabase, ChatMessage, ChatConversation } from '@/lib/supabase'
 import { useTheme } from '@/components/ThemeProvider'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { Send, Paperclip, Check, CheckCheck, MessageSquare, Shield, Info, X } from 'lucide-react'
+import { Send, Paperclip, Check, CheckCheck, MessageSquare, Shield, Info } from 'lucide-react'
 
-export default function ChatPage() {
+// 1. On déplace toute la logique dans un composant interne
+function ChatContent() {
   const { theme } = useTheme()
   const router = useRouter()
   const [user, setUser] = useState<any>(null)
@@ -17,12 +18,10 @@ export default function ChatPage() {
   const [newMessage, setNewMessage] = useState('')
   const [loading, setLoading] = useState(true)
   const [sending, setSending] = useState(false)
-  const [isTyping, setIsTyping] = useState(false)
   const [uploading, setUploading] = useState(false)
 
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     checkUser()
@@ -38,7 +37,7 @@ export default function ChatPage() {
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages, isTyping])
+  }, [messages])
 
   const checkUser = async () => {
     const { data: { user } } = await supabase.auth.getUser()
@@ -124,7 +123,6 @@ export default function ChatPage() {
 
       if (error) throw error
 
-      // Update last message timestamp
       await supabase.from('chat_conversations')
         .update({ last_message_at: new Date().toISOString() })
         .eq('id', conversation.id)
@@ -132,7 +130,6 @@ export default function ChatPage() {
     } catch (error: any) {
       console.error("Failed to send:", error)
       setNewMessage(content)
-      alert("Message not sent. Check your connection.")
     } finally {
       setSending(false)
     }
@@ -172,8 +169,6 @@ export default function ChatPage() {
       <Header />
 
       <main className="flex-1 container mx-auto max-w-5xl px-4 py-8 flex flex-col min-h-0">
-        
-        {/* Chat Header */}
         <div className="flex items-center justify-between mb-6 px-2">
             <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#FFA52F] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
@@ -193,7 +188,6 @@ export default function ChatPage() {
             </div>
         </div>
 
-        {/* Messages Window */}
         <div className={`flex-1 overflow-hidden flex flex-col rounded-[2.5rem] border ${theme === 'dark' ? 'bg-gray-900/40 border-white/5' : 'bg-white border-gray-200 shadow-xl'}`}>
           <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 scrollbar-hide">
             {loading ? (
@@ -212,7 +206,6 @@ export default function ChatPage() {
                 return (
                   <div key={msg.id} className={`flex ${isOwn ? 'justify-end' : 'justify-start'} animate-in fade-in slide-in-from-bottom-4 duration-500`}>
                     <div className={`max-w-[85%] md:max-w-[70%] ${isOwn ? 'items-end' : 'items-start'} flex flex-col`}>
-                      
                       <div className={`px-6 py-4 rounded-[1.8rem] text-sm font-medium shadow-sm ${
                         isOwn 
                           ? 'bg-[#FFA52F] text-white rounded-tr-none' 
@@ -228,7 +221,6 @@ export default function ChatPage() {
                             />
                         )}
                       </div>
-
                       <div className={`flex items-center gap-2 mt-2 px-1 ${isOwn ? 'flex-row' : 'flex-row-reverse'}`}>
                         <span className="text-[10px] font-black uppercase opacity-30">
                             {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -247,7 +239,6 @@ export default function ChatPage() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input Panel */}
           <div className={`p-4 md:p-6 border-t ${theme === 'dark' ? 'border-white/5 bg-black/40' : 'border-gray-100 bg-gray-50/50'}`}>
             <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-2 rounded-[2rem] shadow-inner border border-black/5 dark:border-white/5 focus-within:ring-2 ring-orange-500/20 transition-all">
               <button 
@@ -286,5 +277,14 @@ export default function ChatPage() {
 
       <Footer />
     </div>
+  )
+}
+
+// 2. Export par défaut avec Suspense
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center italic text-[#FFA52F] uppercase text-xs tracking-widest">Initializing Secure Channel...</div>}>
+      <ChatContent />
+    </Suspense>
   )
 }
