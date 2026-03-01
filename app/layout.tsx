@@ -58,9 +58,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${inter.className} bg-white dark:bg-gray-900 transition-colors`}>
         <ThemeProvider 
           attribute="class" 
-          defaultTheme="light" // "light" est souvent mieux pour le SEO médical au début
+          defaultTheme="light" 
           enableSystem 
-          disableTransitionOnChange
         >
           {children}
         </ThemeProvider>
