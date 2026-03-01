@@ -1,12 +1,13 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react' // Ajout de Suspense
 import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
-export default function Checkout2() {
+// 1. On déplace la logique dans un composant interne
+function CheckoutDetails() {
   const searchParams = useSearchParams()
   const orderId = searchParams.get('orderId')
   const [order, setOrder] = useState<any>(null)
@@ -17,14 +18,12 @@ export default function Checkout2() {
     async function fetchOrderDetails() {
       if (!orderId) return
       
-      // 1. Récupérer la commande
       const { data: orderData } = await supabase
         .from('orders')
         .select('*')
         .eq('id', orderId)
         .single()
 
-      // 2. Récupérer les articles
       const { data: itemsData } = await supabase
         .from('order_items')
         .select('*')
@@ -38,8 +37,8 @@ export default function Checkout2() {
     fetchOrderDetails()
   }, [orderId])
 
-  if (loading) return <div className="p-20 text-center">Loading your receipt...</div>
-  if (!order) return <div className="p-20 text-center">Order not found.</div>
+  if (loading) return <div className="p-20 text-center font-black uppercase tracking-widest opacity-30">Loading your receipt...</div>
+  if (!order) return <div className="p-20 text-center font-black uppercase tracking-widest opacity-30">Order not found.</div>
 
   return (
     <div className="bg-white min-h-screen font-sans">
@@ -115,10 +114,6 @@ export default function Checkout2() {
                 <td className="pt-6 text-right pr-12 font-black text-slate-900">Total:</td>
                 <td className="pt-6 text-right font-black text-slate-900">£{Number(order.total_amount).toFixed(2)}</td>
               </tr>
-              <tr>
-                <td className="pt-10 text-right pr-12 font-bold text-slate-900">Payment Method:</td>
-                <td className="pt-10 text-right font-medium text-slate-700 capitalize">{order.payment_method?.replace('_', ' ')}</td>
-              </tr>
             </tfoot>
           </table>
         </div>
@@ -126,5 +121,18 @@ export default function Checkout2() {
 
       <Footer />
     </div>
+  )
+}
+
+// 2. Export principal avec Suspense
+export default function Checkout2() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-white">
+        <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    }>
+      <CheckoutDetails />
+    </Suspense>
   )
 }
