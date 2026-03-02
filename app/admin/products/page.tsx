@@ -221,17 +221,17 @@ export default function AdminDashboard() {
             <form onSubmit={handleSubmit} className="p-8 space-y-5">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase text-gray-400">Nom du Produit *</label>
+                  <label className="text-[10px] font-black uppercase text-gray-400">Product Name *</label>
                   <input required className="w-full bg-gray-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-[#EF6C00] text-black text-sm" value={form.name} onChange={e => setForm({...form, name: e.target.value})} />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase text-gray-400">Prix (£) *</label>
+                  <label className="text-[10px] font-black uppercase text-gray-400">Price (£) *</label>
                   <input required type="number" step="0.01" className="w-full bg-gray-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-[#EF6C00] text-black text-sm" value={form.price} onChange={e => setForm({...form, price: e.target.value})} />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase text-gray-400">Catégorie *</label>
+                <label className="text-[10px] font-black uppercase text-gray-400">Category *</label>
                 <div className="relative">
                   <select 
                     className="w-full bg-gray-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-[#EF6C00] appearance-none text-black text-sm font-medium" 
@@ -253,13 +253,13 @@ export default function AdminDashboard() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase text-gray-400">Stock Initial</label>
+                  <label className="text-[10px] font-black uppercase text-gray-400">Initial Stock</label>
                   <input type="number" className="w-full bg-gray-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-[#EF6C00] text-black text-sm" value={form.stock} onChange={e => setForm({...form, stock: parseInt(e.target.value) || 0})} />
                 </div>
                 <div className="space-y-1">
-                  <label className="text-[10px] font-black uppercase text-gray-400">Statut</label>
+                  <label className="text-[10px] font-black uppercase text-gray-400">Status</label>
                   <select className="w-full bg-gray-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-[#EF6C00] text-black text-sm font-medium" value={form.is_active ? 'true' : 'false'} onChange={e => setForm({...form, is_active: e.target.value === 'true'})}>
-                    <option value="true">Actif (Visible)</option>
+                    <option value="true">Active (Visible)</option>
                     <option value="false">Masqué</option>
                   </select>
                 </div>
