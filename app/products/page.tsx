@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Search, ChevronDown, Phone, Menu, X, Facebook, Twitter, Instagram, Youtube, CheckCircle2, Percent, Mail } from 'lucide-react'
+import { ShoppingCart, Search, CheckCircle2, Percent, Mail, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -10,7 +10,6 @@ import Footer from '@/components/Footer'
 
 export default function Header() {
   const router = useRouter()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isCatOpen, setIsCatOpen] = useState(false)
   const [categories, setCategories] = useState<any[]>([])
   const [searchValue, setSearchValue] = useState('')
@@ -48,7 +47,8 @@ export default function Header() {
     }
   }, [])
 
-  const addToCart = (product: any) => {
+  const addToCart = (e: React.MouseEvent, product: any) => {
+    e.preventDefault() // Empêche la navigation vers la page produit lors du clic sur le bouton
     const cart = JSON.parse(localStorage.getItem('cart') || '[]')
     const existingIndex = cart.findIndex((item: any) => item.id === product.id)
     if (existingIndex > -1) { cart[existingIndex].quantity += 1 } 
@@ -72,7 +72,7 @@ export default function Header() {
   })
 
   return (
-    <div className="bg-white min-h-screen flex flex-col"> {/* Ajout de flex-col pour pousser le footer en bas */}
+    <div className="bg-white min-h-screen flex flex-col">
       
       {/* POPUP SUCCÈS */}
       <AnimatePresence>
@@ -112,35 +112,20 @@ export default function Header() {
           <div className="flex items-center gap-5">
             <Link href="/cart" className="relative group">
               <ShoppingCart size={24} className="text-gray-700 group-hover:text-orange-500" />
-              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] w-4.5 h-4.5 rounded-full flex items-center justify-center font-bold">{cartCount}</span>
+              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{cartCount}</span>
             </Link>
-           
           </div>
         </div>
 
         <nav className="bg-[#EF6C00]">
           <div className="container mx-auto px-4 flex items-center justify-between h-14">
             <div className="flex items-center h-full">
-              <div className="relative h-full">
-               
-                <AnimatePresence>
-                  {isCatOpen && (
-                    <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 15 }} className="absolute top-full left-0 w-72 bg-white shadow-2xl z-[110] py-5 border border-gray-100">
-                      {categories.map((cat: any) => (
-                        <Link key={cat.id} href={`/products?category=${cat.id}`} className="flex items-center gap-4 px-8 py-3.5 hover:bg-gray-50 text-[13px] font-bold">
-                          <img src={cat.icon_url || "/leaf-icon.png"} className="w-5 h-5" alt="" />{cat.name}
-                        </Link>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              <div className="hidden lg:flex items-center gap-10 ml-10 text-white text-[11px] font-bold uppercase tracking-widest">
+              <div className="hidden lg:flex items-center gap-10 text-white text-[11px] font-black uppercase tracking-widest">
                 <Link href="/">HOME</Link>
                 <Link href="/products">SHOP</Link>
                 <Link href="/orders">MY ORDERS</Link>
                 <Link href="/chat">SUPPORT</Link>
-             
+                <Link href="/admin" className="bg-white/10 px-3 py-1 rounded">ADMIN PANEL</Link>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-3 text-white">
@@ -151,27 +136,69 @@ export default function Header() {
         </nav>
       </header>
 
-      {/* CONTENU PRINCIPAL */}
+      {/* CONTENU PRINCIPAL (LA LISTE DE PRODUITS) */}
       <main className="container mx-auto px-4 py-16 bg-white flex-grow">
         <div className="flex flex-col items-center mb-12">
             <span className="bg-black text-white px-4 py-1 text-[10px] font-black uppercase tracking-[0.3em] mb-4">Collection</span>
             <h2 className="text-3xl md:text-4xl font-black text-center uppercase text-gray-900">
-              {filterPromo ? 'Exclusive Deals' : 'Featured Products'}
+              {filterPromo ? 'Exclusive Deals' : 'Best Selling Products'}
             </h2>
         </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {displayedProducts.map((product: any) => (
-            <motion.div key={product.id} layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex flex-col">
-              <div className="relative aspect-square overflow-hidden bg-[#F9F9F9] flex items-center justify-center p-6 rounded-t-2xl">
-                {product.on_sale && <div className="absolute top-4 right-4 bg-red-500 text-white text-[9px] font-black px-2 py-1 rounded-md">PROMO</div>}
-                <img src={product.image_url || "/placeholder.png"} className="max-h-full object-contain transition-transform group-hover:scale-110" />
-              </div>
+            <motion.div 
+              key={product.id} 
+              layout 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group flex flex-col overflow-hidden"
+            >
+              {/* IMAGE CLIQUABLE VERS DÉTAILS */}
+              <Link href={`/products/${product.id}`} className="relative aspect-square overflow-hidden bg-[#F9F9F9] flex items-center justify-center p-6 cursor-pointer">
+                {product.on_sale && (
+                  <div className="absolute top-4 right-4 bg-red-500 text-white text-[9px] font-black px-2 py-1 rounded-md z-10">PROMO</div>
+                )}
+                <img 
+                  src={product.main_image_url || "/placeholder.png"} 
+                  className="max-h-full object-contain transition-transform duration-500 group-hover:scale-110" 
+                  alt={product.name}
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors flex items-center justify-center">
+                  <span className="bg-white text-black text-[9px] font-black uppercase px-4 py-2 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all">View Details</span>
+                </div>
+              </Link>
+
+              {/* INFOS PRODUIT */}
               <div className="p-6 flex flex-col flex-grow">
-                <h3 className="font-black text-gray-900 uppercase text-lg mb-1">{product.name}</h3>
+                {/* CATÉGORIE : Orange, Petite et Espacée */}
+                <span className="text-[#EF6C00] text-[10px] font-black uppercase tracking-[0.15em] mb-1 block">
+                  {product.category_name || 'Uncategorized'}
+                </span>
+
+                {/* NOM CLIQUABLE */}
+                <Link href={`/products/${product.id}`}>
+                  <h3 className="font-black text-gray-900 uppercase text-lg mb-4 leading-tight group-hover:text-[#EF6C00] transition-colors cursor-pointer">
+                    {product.name}
+                  </h3>
+                </Link>
+
                 <p className="text-gray-400 text-xs mb-4 line-clamp-2 h-8">{product.description}</p>
+                
                 <div className="mt-auto">
-                  <p className="text-[#EF6C00] font-black text-2xl mb-4">£{product.price}</p>
-                  <button onClick={() => addToCart(product)} className="w-full bg-black text-white py-3 rounded-lg font-black uppercase text-[10px] hover:bg-[#EF6C00] transition-all">Add to Cart</button>
+                  <div className="flex items-baseline gap-2 mb-4">
+                    <p className="text-[#EF6C00] font-black text-2xl">£{product.price}</p>
+                    {product.on_sale && product.sale_price && (
+                      <p className="text-gray-300 line-through text-sm">£{product.price}</p>
+                    )}
+                  </div>
+                  
+                  <button 
+                    onClick={(e) => addToCart(e, product)} 
+                    className="w-full bg-black text-white py-4 rounded-xl font-black uppercase text-[10px] hover:bg-[#EF6C00] transition-all flex items-center justify-center gap-2 group/btn"
+                  >
+                    <ShoppingCart size={14} /> Add to Cart
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -179,24 +206,7 @@ export default function Header() {
         </div>
       </main>
 
-      {/* --- FOOTER --- */}
       <Footer />
-
-      {/* MENU MOBILE */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/60 z-[200] backdrop-blur-sm" onClick={() => setIsMenuOpen(false)} />
-            <motion.div initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }} className="fixed inset-y-0 left-0 w-80 bg-white z-[210] p-10 flex flex-col">
-              <button onClick={() => setIsMenuOpen(false)} className="self-end p-2"><X size={24} /></button>
-              <div className="flex flex-col gap-8 mt-10 text-lg font-black uppercase">
-                <Link href="/" onClick={() => setIsMenuOpen(false)}>Home</Link>
-                <Link href="/products" onClick={() => setIsMenuOpen(false)}>Shop</Link>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
 
       <style jsx global>{`
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
