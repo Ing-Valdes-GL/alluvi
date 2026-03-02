@@ -239,7 +239,7 @@ export default function AdminDashboard() {
                     onChange={e => setForm({...form, category_name: e.target.value})}
                   >
                     <option value="Compound">Compound</option>
-                    <option value="Retatritude">Retatritude</option>
+                    <option value="Retatrutide">Retatrutide</option>
                     
                   </select>
                   <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
