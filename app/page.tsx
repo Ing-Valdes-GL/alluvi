@@ -40,27 +40,73 @@ export default function HomePage() {
     <div className="min-h-screen bg-white text-[#0A0A0B]">
       <Header />
 
-      {/* --- HERO SECTION --- */}
-      <section className="relative bg-[#0A0A0B] pt-32 pb-48 overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-[url('/grid-pattern.png')] bg-repeat" />
-        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
-          <motion.img initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} src="/leaf-icon-gray.png" className="w-12 h-12 mb-8 opacity-50" alt="" />
-          <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-none mb-6">ALLUVI HEALTH CARE</h1>
-          <p className="text-xl text-gray-400 mb-12 max-w-2xl font-medium">Savor the Taste of <span className="text-[#EF6C00]">Alluvi UK</span> Lifestyle!</p>
-          <Link href="/products" className="bg-[#EF6C00] text-white px-10 py-4 rounded-md font-black uppercase text-xs tracking-[0.2em] flex items-center gap-3 hover:bg-white hover:text-[#EF6C00] transition-all">
-            Browse All Products <ArrowRight size={16} />
-          </Link>
-        </div>
-        <div className="absolute bottom-0 w-full bg-[#EF6C00] py-4 border-t border-white/10">
-          <div className="flex whitespace-nowrap animate-marquee">
-            {[1, 2, 3].map((i) => (
-              <span key={i} className="text-white font-black text-[11px] uppercase tracking-[0.2em] mx-10">
-                ★ Fast Shipping on orders above £250 ★ Special Offer : Get 35% Discount Code "alluvicare26" ★ Fast Shipping on orders above £100 ★ 100% Lab Tested
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
+{/* --- HERO SECTION : REPRODUCTION EXACTE MAQUETTE --- */}
+<section className="relative bg-[#050505] min-h-[85vh] flex items-center justify-center overflow-hidden">
+  
+  {/* FOND GRILLE TECHNIQUE */}
+  <div className="absolute inset-0 z-0 opacity-[0.15]" 
+       style={{ backgroundImage: `linear-gradient(#ffffff 1px, transparent 1px), linear-gradient(90deg, #d7cec8 1px, transparent 1px)`, 
+                backgroundSize: '6px 6px' }}>
+  </div>
+
+  <div className="container mx-auto px-4 relative z-10 flex items-center justify-between">
+    
+    {/* ARCHE GAUCHE (WEIGHT LOSS) */}
+    <motion.div 
+      initial={{ opacity: 0, x: -40 }} 
+      animate={{ opacity: 1, x: 0 }} 
+      className="hidden lg:block relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#EF6C00] flex-shrink-0"
+    >
+      <img src="/hero-right-arch.png" className="w-full h-full object-contain p-1 scale-110 z-10 relative" alt="" />
+      <div className="absolute bottom-6 left-0 w-full text-center">
+        
+      </div>
+    </motion.div>
+
+    {/* BLOC CENTRAL : TYPOGRAPHIE MAQUETTE */}
+    <div className="flex flex-col items-center text-center flex-grow px-10">
+      <img src="/leaf-icon-gray.png" className="w-14 h-14 mb-8 opacity-70" alt="Logo" />
+      
+      <h1 className="text-4xl md:text-6xl font-black text-white leading-[0.8] tracking-[-0.06em] uppercase mb-8">
+        ALLUVI <br /> HEALTH CARE
+      </h1>
+      
+      <p className="text-xl md:text-3xl text-gray-400 font-medium tracking-tight mb-12">
+        Savor the Taste of <span className="text-[#EF6C00] font-bold">Alluvi UK</span> Lifestyle!
+      </p>
+      
+      <Link href="/products" className="group relative bg-gradient-to-r from-[#EF6C00] to-[#FF8C33] text-white px-14 py-5 rounded-xl font-black uppercase text-sm tracking-[0.2em] shadow-[0_15px_40px_rgba(239,108,0,0.3)] transition-all hover:scale-105">
+        <span className="flex items-center gap-3">
+            Browse All Products <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
+        </span>
+      </Link>
+    </div>
+
+    {/* ARCHE DROITE (RECOVERY) */}
+    <motion.div 
+      initial={{ opacity: 0, x: 40 }} 
+      animate={{ opacity: 1, x: 0 }} 
+      className="hidden lg:block relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#00A699] flex-shrink-0"
+    >
+      <img src="/hero-left-arch.png" className="w-full h-full object-contain p-1 scale-110 z-10 relative" alt="" />
+      <div className="absolute bottom-6 left-0 w-full text-center">
+       
+      </div>
+    </motion.div>
+
+  </div>
+
+  {/* MARQUEE FOOTER */}
+  <div className="absolute bottom-0 w-full bg-[#EF6C00] py-4 z-20 overflow-hidden border-t border-white/10">
+    <div className="flex whitespace-nowrap animate-marquee">
+      {[1, 2, 3].map((i) => (
+        <span key={i} className="text-white font-black text-[12px] uppercase tracking-[0.3em] mx-10">
+          ★ Fast Shipping on orders above £100 ★ 100% Lab Tested ★ Pure Compounds ★ 
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* --- BEST SELLERS --- */}
       <section className="py-24 bg-white">
@@ -131,7 +177,7 @@ export default function HomePage() {
                <div className="absolute left-0 top-0 bottom-0 w-24 bg-[#050A30] hidden md:block" style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }} />
                <div className="relative z-10 flex flex-col items-center">
                  <h4 className="text-white text-7xl font-black opacity-40 absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg]">Alluvi Labs</h4>
-                 <img src="/phone-app.png" className="w-70 lg:w-64 drop-shadow-2xl translate-y-8" alt="App Preview" />
+                 <img src="/phone-app.png" className="w-48 lg:w-64 drop-shadow-2xl translate-y-8" alt="App Preview" />
                </div>
             </div>
           </div>
