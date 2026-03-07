@@ -117,7 +117,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-[#EF6C00] rounded-xl p-10 flex flex-col justify-end min-h-[450px] relative overflow-hidden group">
                <div className="absolute top-10 left-10 opacity-20 group-hover:scale-110 transition-transform duration-700"><img src="/leaf-bg.png" className="w-32" /></div>
-               <div className="relative z-10"><img src="/leaf-white.png" className="w-8 mb-6" /><h3 className="text-3xl font-black text-white leading-tight">Alluvi<br/>Healthcare<br/>Retratutide</h3></div>
+               <div className="relative z-10"><img src="/leaf-white.png" className="w-8 mb-6" /><h3 className="text-3xl font-black text-white leading-tight">Alluvi<br/>Healthcare<br/>Retatrutide</h3></div>
             </div>
             {products.map((product) => (
               <div key={product.id} className="group border border-gray-100 rounded-xl p-6 flex flex-col hover:shadow-xl transition-all">
@@ -236,7 +236,86 @@ export default function HomePage() {
           </>
         )}
       </AnimatePresence>
+        {/* --- SECTION FINALE : CALL TO ACTION (Reproduction Maquette) --- */}
+      <section className="relative bg-[#050505] py-32 overflow-hidden border-t border-white/5">
+        {/* Effet de lueur subtile en arrière-plan */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#EF6C00]/10 blur-[120px] rounded-full pointer-events-none" />
+        
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="flex flex-col items-center text-center">
+            
+            {/* Texte chapeau orange */}
+            <motion.p 
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-[#EF6C00] font-bold text-lg md:text-xl mb-8 tracking-tight"
+            >
+              A Vegan Haven for Heartful Living
+            </motion.p>
 
+            {/* Logo Central Blanc - ALLUVI LABS */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="flex items-center gap-4 mb-10"
+            >
+              <h2 className="text-white text-5xl md:text-7xl font-black font-semibold  uppercase tracking-[-0.04em] flex items-center gap-3">
+                ALLUVI 
+                <img src="/leaf-white.png" className="w-12 h-12 md:w-16 md:h-16  object-contain" alt="Labs Logo" /> 
+                LABS
+              </h2>
+            </motion.div>
+
+            {/* Titre Principal */}
+            <motion.h3 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+             className="text-white text-3xl md:text-5xl font-semibold mb-12 tracking-tight leading-tight max-w-3xl"
+      
+            >
+              Engineered For Research Precision.
+            </motion.h3>
+
+            {/* Bouton Noir/Transparent Maquette */}
+           <motion.div
+  initial={{ opacity: 0, y: 20 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ delay: 0.3 }}
+>
+  <Link 
+    href="/products" 
+    className="group relative inline-flex items-center justify-center px-10 py-4 
+               border border-white/60 rounded-lg overflow-hidden
+               text-white font-bold uppercase text-[12px] tracking-[0.15em] 
+               transition-all duration-300 ease-out"
+  >
+    {/* Fond Orange qui glisse/apparaît au hover */}
+    <span className="absolute inset-0 bg-[#EF6C00] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+
+    {/* Contenu du bouton (Texte + Icône) */}
+    <span className="relative z-10 flex items-center gap-3">
+      Shop Alluvi Items 
+      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+    </span>
+  </Link>
+</motion.div>
+
+          </div>
+        </div>
+
+        {/* Grille technique très discrète en bas de section */}
+        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: `radial-gradient(circle, #ffffff 1px, transparent 1px)`, 
+                      backgroundSize: '30px 30px' }}>
+        </div>
+      </section>
+
+      <Footer />
       <Footer />
       <style jsx global>{`
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
