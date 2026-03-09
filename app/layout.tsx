@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     siteName: 'Alluvi Health-Care',
     images: [
       {
-        url: '/logo-share.png', // Place ce fichier dans ton dossier /public
+        url: '/hero-left-arch.png', // Place ce fichier dans ton dossier /public
         width: 1200,
         height: 630,
         alt: 'Alluvi Health-Care Logo',
