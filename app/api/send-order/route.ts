@@ -64,17 +64,17 @@ export async function POST(req: Request) {
         </div>
 
         <p style="margin-top: 40px; font-size: 14px; color: #777;">
-          Thanks again! If you need any help with your order, please contact us at <a href="/chat" style="color: #FFA52F;">support@alluvicare.com</a>.<br>
-          <strong>Alluvi Health care</strong><br>
+          Thanks again! If you need any help with your order, please contact us at <a href="/chat" style="color: #0ea5e9;">support@vertexbiolabs.com</a>.<br>
+          <strong>Vertex Biolabs</strong><br>
           United Kingdom (UK).
         </p>
       </div>
     `;
 
     const data = await resend.emails.send({
-      from: 'Alluvicare Orders <contact@support.alluvihealth.store>', // Remplace par ton domaine vérifié sur Resend
+      from: 'Vertex Biolabs Orders <contact@support.vertexbiolabs.com>', // Remplace par ton domaine vérifié sur Resend
       to: [email],
-      subject: `Your Alluvicare Order Receipt #${orderRef}`,
+      subject: `Your Vertex Biolabs Order Receipt #${orderRef}`,
       html: htmlContent,
     });
 

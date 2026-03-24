@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ['latin'] })
 // Configuration SEO et Partage Social
 export const metadata: Metadata = {
   title: {
-    default: "Alluvi Health-Care | Secured Pharmaceutical Logistics",
-    template: "%s | Alluvi Health-Care"
+    default: "Vertex Biolabs | Advanced Pharmaceutical Research",
+    template: "%s | Vertex Biolabs"
   },
-  description: "Alluvi Health-Care provides safe, discreet, and professional pharmaceutical delivery services across the UK.",
+  description: "Vertex Biolabs provides cutting-edge pharmaceutical research and development with secure logistics across the UK.",
   metadataBase: new URL('https://alluvihealth.store'),
   
   // Apparence dans Google (Outcome)
@@ -21,16 +21,16 @@ export const metadata: Metadata = {
 
   // Partage sur WhatsApp, Facebook, LinkedIn (Open Graph)
   openGraph: {
-    title: "Alluvi Health-Care | Secured Logistics",
-    description: "Professional and discreet pharmaceutical delivery services.",
+    title: "Vertex Biolabs | Advanced Research",
+    description: "Cutting-edge pharmaceutical research and development services.",
     url: 'https://alluvihealth.store',
-    siteName: 'Alluvi Health-Care',
+    siteName: 'Vertex Biolabs',
     images: [
       {
         url: '/favicon.ico', // Place ce fichier dans ton dossier /public
         width: 1200,
         height: 630,
-        alt: 'Alluvi Health-Care Logo',
+        alt: 'Vertex Biolabs Logo',
       },
     ],
     locale: 'en_GB',
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   // Partage sur Twitter / X
   twitter: {
     card: 'summary_large_image',
-    title: 'Alluvi Health-Care',
-    description: 'Secured Pharmaceutical Logistics.',
+    title: 'Vertex Biolabs',
+    description: 'Advanced Pharmaceutical Research.',
     images: ['/logo-share.png'],
   },
 

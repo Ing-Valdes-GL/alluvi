@@ -2,11 +2,11 @@
 
 @theme {
   /* On définit nos couleurs brand directement ici pour Tailwind v4 */
-  --color-brand-primary: #F59E0B;
-  --color-brand-secondary: #FBBF24;
-  --color-brand-accent: #EA580C;
-  --color-brand-light: #FEF3C7;
-  --color-brand-dark: #78350F;
+  --color-brand-primary: #0ea5e9;
+  --color-brand-secondary: #1e3a8a;
+  --color-brand-accent: #0284c7;
+  --color-brand-light: #e0f2fe;
+  --color-brand-dark: #1e40af;
   
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -38,8 +38,8 @@
 
 /* Sélection de texte */
 ::selection {
-  background-color: #FBBF24;
-  color: #78350F;
+  background-color: #0ea5e9;
+  color: #ffffff;
 }
 
 /* Scrollbar */
@@ -47,6 +47,6 @@
   width: 8px;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #F59E0B;
+  background-color: #0ea5e9;
   border-radius: 20px;
 }

@@ -83,7 +83,7 @@ export default function Header() {
               <p className="text-[9px] uppercase font-black tracking-widest text-gray-400">Success</p>
               <p className="text-sm font-bold truncate">{addedItemName} added!</p>
             </div>
-            <Link href="/cart" className="text-[#EF6C00] text-xs font-black uppercase underline decoration-2 underline-offset-4">Cart</Link>
+            <Link href="/cart" className="text-[#0ea5e9] text-xs font-black uppercase underline decoration-2 underline-offset-4">Cart</Link>
           </motion.div>
         )}
       </AnimatePresence>
@@ -99,25 +99,25 @@ export default function Header() {
 
       <header className="bg-white relative z-[90] border-b border-gray-100">
         <div className="container mx-auto px-4 py-6 flex items-center justify-between gap-8">
-          <Link href="/"><img src="/favicon.ico" alt="Alluvi" className="h-10 md:h-12" /></Link>
+          <Link href="/"><img src="/favicon.ico" alt="Vertex Biolabs" className="h-10 md:h-12" /></Link>
           <div className="hidden md:flex flex-grow max-w-2xl items-center gap-3">
             <form onSubmit={handleSearchSubmit} className="flex-grow flex border border-gray-200 rounded-lg overflow-hidden shadow-sm">
               <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder="Search a product..." className="flex-grow px-6 py-2.5 text-sm outline-none" />
               <button type="submit" className="bg-black text-white px-6"><Search size={18} /></button>
             </form>
-            <button onClick={() => setFilterPromo(!filterPromo)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border text-[10px] font-black uppercase ${filterPromo ? 'bg-[#EF6C00] text-white' : 'text-gray-400'}`}>
+            <button onClick={() => setFilterPromo(!filterPromo)} className={`flex items-center gap-2 px-5 py-2.5 rounded-lg border text-[10px] font-black uppercase ${filterPromo ? 'bg-[#0ea5e9] text-white' : 'text-gray-400'}`}>
               <Percent size={14} /> {filterPromo ? 'Promos Only' : 'Everything'}
             </button>
           </div>
           <div className="flex items-center gap-5">
             <Link href="/cart" className="relative group">
-              <ShoppingCart size={24} className="text-gray-700 group-hover:text-orange-500" />
+              <ShoppingCart size={24} className="text-gray-700 group-hover:text-blue-500" />
               <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-bold">{cartCount}</span>
             </Link>
           </div>
         </div>
 
-        <nav className="bg-[#EF6C00]">
+        <nav className="bg-[#1e3a8a]">
           <div className="container mx-auto px-4 flex items-center justify-between h-14">
             <div className="flex items-center h-full">
               <div className="hidden lg:flex items-center gap-10 text-white text-[11px] font-black uppercase tracking-widest">
@@ -172,13 +172,13 @@ export default function Header() {
               {/* INFOS PRODUIT */}
               <div className="p-6 flex flex-col flex-grow">
                 {/* CATÉGORIE : Orange, Petite et Espacée */}
-                <span className="text-[#EF6C00] text-[10px] font-black uppercase tracking-[0.15em] mb-1 block">
+                <span className="text-[#0ea5e9] text-[10px] font-black uppercase tracking-[0.15em] mb-1 block">
                   {product.category_name || 'Uncategorized'}
                 </span>
 
                 {/* NOM CLIQUABLE */}
                 <Link href={`/products/${product.id}`}>
-                  <h3 className="font-black text-gray-900 uppercase text-lg mb-4 leading-tight group-hover:text-[#EF6C00] transition-colors cursor-pointer">
+                  <h3 className="font-black text-gray-900 uppercase text-lg mb-4 leading-tight group-hover:text-[#0ea5e9] transition-colors cursor-pointer">
                     {product.name}
                   </h3>
                 </Link>
@@ -187,7 +187,7 @@ export default function Header() {
                 
                 <div className="mt-auto">
                   <div className="flex items-baseline gap-2 mb-4">
-                    <p className="text-[#EF6C00] font-black text-2xl">£{product.price}</p>
+                    <p className="text-[#0ea5e9] font-black text-2xl">£{product.price}</p>
                     {product.on_sale && product.sale_price && (
                       <p className="text-gray-300 line-through text-sm">£{product.price}</p>
                     )}
@@ -195,7 +195,7 @@ export default function Header() {
                   
                   <button 
                     onClick={(e) => addToCart(e, product)} 
-                    className="w-full bg-black text-white py-4 rounded-xl font-black uppercase text-[10px] hover:bg-[#EF6C00] transition-all flex items-center justify-center gap-2 group/btn"
+                    className="w-full bg-black text-white py-4 rounded-xl font-black uppercase text-[10px] hover:bg-[#0ea5e9] transition-all flex items-center justify-center gap-2 group/btn"
                   >
                     <ShoppingCart size={14} /> Add to Cart
                   </button>

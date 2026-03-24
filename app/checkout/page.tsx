@@ -160,7 +160,7 @@ export default function CheckoutPage() {
     <div className="bg-white min-h-screen font-sans text-slate-900 relative">
       <Header />
       
-      <div className="bg-[#FFEDD5] py-16 text-center">
+      <div className="bg-blue-50 py-16 text-center">
         <h1 className="text-4xl font-bold tracking-tight text-slate-900">Your Checkout</h1>
       </div>
 
@@ -177,7 +177,7 @@ export default function CheckoutPage() {
             <InputField label="Company (optional)" value={formData.companyName} onChange={(v:any) => setFormData({...formData, companyName: v})} />
             <div className="space-y-1">
               <label className="text-sm font-bold text-slate-800">Country *</label>
-              <select className="w-full p-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-orange-300">
+              <select className="w-full p-3 bg-white border border-slate-200 rounded-xl outline-none focus:border-sky-300">
                 <option>United Kingdom (UK)</option>
               </select>
             </div>
@@ -199,7 +199,7 @@ export default function CheckoutPage() {
         </div>
 
         <aside>
-          <div className="bg-[#FFFBF7] p-8 rounded-3xl border border-orange-100 shadow-sm sticky top-24">
+          <div className="bg-[#FFFBF7] p-8 rounded-3xl border border-sky-100 shadow-sm sticky top-24">
             <h3 className="text-lg font-bold mb-6">Review Your Order</h3>
             
             <div className="space-y-4 mb-8">
@@ -217,12 +217,12 @@ export default function CheckoutPage() {
                ))}
             </div>
 
-            <div className="space-y-3 pt-4 border-t border-orange-100 text-sm">
+            <div className="space-y-3 pt-4 border-t border-sky-100 text-sm">
               <div className="flex justify-between"><span>Subtotal</span><span className="font-bold">£{subtotal.toFixed(2)}</span></div>
-              <div className="flex justify-between text-orange-600 font-medium italic"><span>Discount</span><span>-£{discount.toFixed(2)}</span></div>
+              <div className="flex justify-between text-sky-600 font-medium italic"><span>Discount</span><span>-£{discount.toFixed(2)}</span></div>
               <div className="flex justify-between"><span>Shipping</span><span className="font-bold">£{shipping.toFixed(2)}</span></div>
-              <div className="flex justify-between text-lg font-black pt-4 border-t border-orange-100">
-                <span>Total</span><span className="text-[#EF6C00] text-2xl">£{total.toFixed(2)}</span>
+              <div className="flex justify-between text-lg font-black pt-4 border-t border-sky-100">
+                <span>Total</span><span className="text-[#0ea5e9] text-2xl">£{total.toFixed(2)}</span>
               </div>
             </div>
 
@@ -231,13 +231,13 @@ export default function CheckoutPage() {
               <PaymentOption id="bank_transfer" label="Bank Transfer" icon={<Banknote size={18}/>} current={formData.paymentMethod} set={(v:any) => setFormData({...formData, paymentMethod: v})} />
               <PaymentOption id="zelle" label="Zelle" icon={<CreditCard size={18} className="text-purple-600"/>} current={formData.paymentMethod} set={(v:any) => setFormData({...formData, paymentMethod: v})} />
               <PaymentOption id="apple_pay" label="ApplePay" icon={<Apple size={18} className="text-black fill-current"/>} current={formData.paymentMethod} set={(v:any) => setFormData({...formData, paymentMethod: v})} />
-              <PaymentOption id="crypto" label="Crypto" icon={<Bitcoin size={18} className="text-orange-500"/>} current={formData.paymentMethod} set={(v:any) => setFormData({...formData, paymentMethod: v})} />
+              <PaymentOption id="crypto" label="Crypto" icon={<Bitcoin size={18} className="text-sky-500"/>} current={formData.paymentMethod} set={(v:any) => setFormData({...formData, paymentMethod: v})} />
             </div>
 
             <button 
               onClick={handlePlaceOrder}
               disabled={isSubmitting}
-              className="w-full bg-[#FFA52F] text-white py-4 rounded-2xl font-bold mt-8 hover:bg-orange-600 transition-all shadow-lg active:scale-95 disabled:opacity-50"
+              className="w-full bg-[#0ea5e9] text-white py-4 rounded-2xl font-bold mt-8 hover:bg-sky-600 transition-all shadow-lg active:scale-95 disabled:opacity-50"
             >
               {isSubmitting ? 'Processing...' : 'Place Order'}
             </button>

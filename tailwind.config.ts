@@ -17,10 +17,10 @@ const config: Config = {
         
         // AJOUT DES COULEURS THÉMATIQUES
         brand: {
-          primary: '#F59E0B',   // Orange principal (Amber 500)
-          secondary: '#FBBF24', // Jaune chaud (Amber 400)
-          accent: '#EA580C',    // Orange foncé pour les hover (Orange 600)
-          light: '#FEF3C7',     // Jaune très clair pour les fonds
+          primary: '#0ea5e9',    // Sky Blue principal
+          secondary: '#0284c7', // Darker Sky Blue
+          accent: '#1e40af',    // Navy Blue pour les hover
+          light: '#e0f2fe',     // Light Blue pour les fonds
         }
       },
       animation: {

@@ -14,9 +14,9 @@ export default function AboutPage() {
       {/* --- SECTION 1 : HERO SIMPLE & FIN --- */}
       <section className="pt-32 pb-16 border-b border-gray-100">
         <div className="container mx-auto px-6 text-center">
-          <p className="text-[11px] uppercase tracking-[0.3em] font-bold text-[#EF6C00] mb-4">Discovery</p>
+          <p className="text-[11px] uppercase tracking-[0.3em] font-bold text-[#0ea5e9] mb-4">Discovery</p>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-12">About Our Labs</h1>
-          <div className="w-24 h-[2px] bg-[#EF6C00] mx-auto"></div>
+          <div className="w-24 h-[2px] bg-[#0ea5e9] mx-auto"></div>
         </div>
       </section>
 
@@ -31,8 +31,8 @@ export default function AboutPage() {
              <h2 className="text-xl md:text-2xl font-medium leading-relaxed italic text-gray-800 mb-8">
                "Our mission is to provide the highest purity compounds with absolute transparency. Innovation in healthcare starts with precision in the lab."
              </h2>
-             <p className="text-[#EF6C00] font-bold text-xs uppercase tracking-widest">
-               Allen Bryant <span className="text-gray-400 font-normal ml-2">— Alluvi Health-Care</span>
+             <p className="text-[#0ea5e9] font-bold text-xs uppercase tracking-widest">
+               Allen Bryant <span className="text-gray-400 font-normal ml-2">— Vertex Biolabs</span>
              </p>
           </div>
 
@@ -43,8 +43,8 @@ export default function AboutPage() {
               { title: "Research Focused", icon: <Percent size={28} /> },
               { title: "Global Logistics", icon: <Truck size={28} /> }
             ].map((item, index) => (
-              <div key={index} className="group border border-gray-100 rounded-2xl p-10 text-center hover:border-[#EF6C00]/30 transition-all duration-300">
-                <div className="w-16 h-16 bg-[#FFF5EB] text-[#EF6C00] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
+              <div key={index} className="group border border-gray-100 rounded-2xl p-10 text-center hover:border-[#0ea5e9]/30 transition-all duration-300">
+                <div className="w-16 h-16 bg-[#e0f2fe] text-[#0ea5e9] rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
                   {item.icon}
                 </div>
                 <h3 className="text-lg font-bold mb-3 uppercase tracking-tight">{item.title}</h3>
@@ -66,15 +66,15 @@ export default function AboutPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-4xl mx-auto border-t border-white/10 pt-16">
             <div>
-              <p className="text-[#EF6C00] text-4xl font-bold mb-2">3M+</p>
+              <p className="text-[#0ea5e9] text-4xl font-bold mb-2">3M+</p>
               <p className="text-white/50 text-[10px] uppercase font-bold tracking-[0.2em]">Compounds Delivered</p>
             </div>
             <div>
-              <p className="text-[#EF6C00] text-4xl font-bold mb-2">15</p>
+              <p className="text-[#0ea5e9] text-4xl font-bold mb-2">15</p>
               <p className="text-white/50 text-[10px] uppercase font-bold tracking-[0.2em]">Verified Hubs</p>
             </div>
             <div>
-              <p className="text-[#EF6C00] text-4xl font-bold mb-2">4.7k+</p>
+              <p className="text-[#0ea5e9] text-4xl font-bold mb-2">4.7k+</p>
               <p className="text-white/50 text-[10px] uppercase font-bold tracking-[0.2em]">Professional Partners</p>
             </div>
           </div>
@@ -100,7 +100,7 @@ export default function AboutPage() {
             <p className="text-gray-500 mb-10 text-lg font-light leading-relaxed">
               Our facilities are designed to meet the rigorous standards of modern science. We ensure every batch is tested and verified for the highest consistency.
             </p>
-            <Link href="/products" className="inline-flex items-center gap-4 bg-[#EF6C00] text-white px-10 py-4 rounded-xl font-bold uppercase text-[11px] tracking-widest hover:bg-black transition-all shadow-xl shadow-orange-100">
+            <Link href="/products" className="inline-flex items-center gap-4 bg-[#0ea5e9] text-white px-10 py-4 rounded-xl font-bold uppercase text-[11px] tracking-widest hover:bg-black transition-all shadow-xl shadow-sky-100">
               Explore Products <ArrowRight size={18} />
             </Link>
           </div>

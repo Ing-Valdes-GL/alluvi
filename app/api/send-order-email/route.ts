@@ -50,7 +50,7 @@ export async function POST(req: Request) {
           <p><strong>Shipping Status:</strong> Your package is currently being prepared by our pharmaceutical logistics team for immediate dispatch.</p>
           <br/>
           <hr style="border: none; border-top: 1px solid #eee;" />
-          <p style="font-size: 11px; color: #999; margin-top: 20px;">Alluvi Health-Care | Secured Pharmaceutical Logistics | This is an automated confirmation.</p>
+          <p style="font-size: 11px; color: #999; margin-top: 20px;">Vertex Biolabs | Advanced Pharmaceutical Research | This is an automated confirmation.</p>
         </div>
       `
       : `
@@ -65,13 +65,13 @@ export async function POST(req: Request) {
           <p>Contact our support department if you believe this is an error.</p>
           <br/>
           <hr style="border: none; border-top: 1px solid #eee;" />
-          <p style="font-size: 11px; color: #999; margin-top: 20px;">Alluvi Health-Care | Administration Department | Security Division</p>
+          <p style="font-size: 11px; color: #999; margin-top: 20px;">Vertex Biolabs | Research Department | Security Division</p>
         </div>
       `;
 
     // 5. Envoi via Resend avec gestion d'erreur spécifique
     const { data, error } = await resend.emails.send({
-      from: 'Alluvi Health-Care <contact@support.alluvihealth.store>',
+      from: 'Vertex Biolabs <contact@support.vertexbiolabs.com>',
       to: [order.email_address],
       subject: subject,
       html: emailContent,

@@ -68,11 +68,11 @@ export default function HomePage() {
       <img src="/leaf-icon-gray.png" className="w-14 h-14 mb-8 opacity-70" alt="Logo" />
       
       <h1 className="text-4xl md:text-6xl font-black text-white leading-[0.8] tracking-[-0.06em] uppercase mb-8">
-        ALLUVI <br /> HEALTH CARE
+        VERTEX <br /> BIOLABS
       </h1>
       
       <p className="text-xl md:text-3xl text-gray-400 font-medium tracking-tight mb-12">
-        Savor the Taste of <span className="text-[#EF6C00] font-bold">Alluvi UK</span> Lifestyle!
+        Advancing Research with <span className="text-[#0ea5e9] font-bold">Vertex Biolabs</span> Innovation!
       </p>
       
       <Link href="/products" className="group relative bg-gradient-to-r from-[#EF6C00] to-[#FF8C33] text-white px-14 py-5 rounded-xl font-black uppercase text-sm tracking-[0.2em] shadow-[0_15px_40px_rgba(239,108,0,0.3)] transition-all hover:scale-105">
@@ -117,7 +117,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-[#EF6C00] rounded-xl p-10 flex flex-col justify-end min-h-[450px] relative overflow-hidden group">
                <div className="absolute top-10 left-10 opacity-20 group-hover:scale-110 transition-transform duration-700"><img src="/leaf-bg.png" className="w-32" /></div>
-               <div className="relative z-10"><img src="/leaf-white.png" className="w-8 mb-6" /><h3 className="text-3xl font-black text-white leading-tight">Alluvi<br/>Healthcare<br/>Retatrutide</h3></div>
+               <div className="relative z-10"><img src="/leaf-white.png" className="w-8 mb-6" /><h3 className="text-3xl font-black text-white leading-tight">Vertex<br/>Biolabs<br/>Research</h3></div>
             </div>
             {products.map((product) => (
               <div key={product.id} className="group border border-gray-100 rounded-xl p-6 flex flex-col hover:shadow-xl transition-all">
@@ -144,7 +144,7 @@ export default function HomePage() {
               </div>
               <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight tracking-tighter">Retatrutide – Pre-Filled Pen<br/>Evaluation</h2>
               <p className="text-gray-500 leading-relaxed mb-6 max-w-lg">
-                Part of <span className="text-[#EF6C00] font-bold">Alluvi Labs'</span> ongoing research program into advanced GLP-1 multi-agonist compounds. This formulation is supplied in controlled batches for laboratory analysis of stability, compound behaviour, and injector system performance.
+                Part of <span className="text-[#0ea5e9] font-bold">Vertex Biolabs'</span> ongoing research program into advanced GLP-1 multi-agonist compounds. This formulation is supplied in controlled batches for laboratory analysis of stability, compound behaviour, and injector system performance.
               </p>
               <p className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-10">Not for human or veterinary consumption.</p>
               <Link href="/about" className="bg-[#EF6C00] text-white px-8 py-4 rounded-lg font-black uppercase text-[10px] tracking-widest flex items-center gap-3 w-fit hover:bg-black transition-all shadow-xl shadow-orange-200">
@@ -176,7 +176,7 @@ export default function HomePage() {
             <div className="flex-1 bg-[#EF6C00] w-full h-full min-h-[380px] flex items-center justify-center relative">
                <div className="absolute left-0 top-0 bottom-0 w-24 bg-[#050A30] hidden md:block" style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }} />
                <div className="relative z-10 flex flex-col items-center">
-                 <h4 className="text-white text-7xl font-black opacity-40 absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg]">Alluvi Labs</h4>
+                 <h4 className="text-white text-7xl font-black opacity-40 absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg]">Vertex Biolabs</h4>
                  <img src="/phone-app.png" className="w-48 lg:w-64 drop-shadow-2xl translate-y-8" alt="App Preview" />
                </div>
             </div>
@@ -254,7 +254,7 @@ export default function HomePage() {
               A Vegan Haven for Heartful Living
             </motion.p>
 
-            {/* Logo Central Blanc - ALLUVI LABS */}
+            {/* Logo Central Blanc - Vertex Biolabs */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
@@ -262,9 +262,9 @@ export default function HomePage() {
               className="flex items-center gap-4 mb-10"
             >
               <h2 className="text-white text-5xl md:text-7xl font-black font-semibold  uppercase tracking-[-0.04em] flex items-center gap-3">
-                ALLUVI 
+                VERTEX 
                 <img src="/leaf-white.png" className="w-12 h-12 md:w-16 md:h-16  object-contain" alt="Labs Logo" /> 
-                LABS
+                BIOLABS
               </h2>
             </motion.div>
 
@@ -299,7 +299,7 @@ export default function HomePage() {
 
     {/* Contenu du bouton (Texte + Icône) */}
     <span className="relative z-10 flex items-center gap-3">
-      Shop Alluvi Items 
+      Shop Vertex Products 
       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
     </span>
   </Link>
@@ -315,7 +315,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <Footer />
+     
       <Footer />
       <style jsx global>{`
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }

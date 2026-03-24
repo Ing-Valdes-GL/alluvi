@@ -77,9 +77,9 @@ export default function Header() {
         {/* LOGO */}
         <Link href="/home" className="flex flex-col items-start group">
           <span className="text-2xl font-black tracking-tighter leading-none group-hover:text-brand-primary transition-colors">
-            ALLUVI<span className="text-brand-primary italic">.</span>
+            VERTEX<span className="text-brand-primary italic">.</span>
           </span>
-          <span className="text-[8px] font-black tracking-[0.3em] uppercase opacity-40">HEALTH CARE</span>
+          <span className="text-[8px] font-black tracking-[0.3em] uppercase opacity-40">Biolabs</span>
         </Link>
 
         {/* NAVIGATION CENTRALE */}
@@ -133,7 +133,7 @@ export default function Header() {
             onClick={toggleTheme}
             className={`p-3 rounded-xl transition-all border ${
               theme === 'dark' 
-                ? 'bg-white/5 border-white/10 text-yellow-400 hover:bg-yellow-400/10' 
+                ? 'bg-white/5 border-white/10 text-sky-400 hover:bg-sky-400/10' 
                 : 'bg-gray-100 border-gray-200 text-indigo-600 hover:bg-indigo-600/10'
             }`}
           >

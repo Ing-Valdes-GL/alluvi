@@ -75,7 +75,7 @@ export default function LoginPage() {
             <input 
               type="email"
               required
-              placeholder="USER@ALLUVICARE.COM"
+              placeholder="USER@VERTEXBIOLABS.COM"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={`w-full bg-transparent border-b-2 py-4 text-sm font-bold outline-none transition-all uppercase placeholder:opacity-10 ${

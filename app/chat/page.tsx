@@ -269,7 +269,7 @@ function ChatContent() {
               </button>
             </div>
             <p className="text-center text-[9px] font-black uppercase tracking-[0.2em] opacity-20 mt-4">
-                Transmission encrypted via ALLUVI Healthcare v3.4
+                Transmission encrypted via Vertex Biolabs v3.4
             </p>
           </div>
         </div>

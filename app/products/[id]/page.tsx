@@ -36,7 +36,7 @@ export default function ProductDetails() {
     setTimeout(() => setShowSuccess(false), 3000)
   }
 
-  if (loading) return <div className="min-h-screen bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#EF6C00]"></div></div>
+  if (loading) return <div className="min-h-screen bg-white flex items-center justify-center"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-[#0ea5e9]"></div></div>
   if (!product) return <div className="min-h-screen bg-white flex items-center justify-center uppercase font-bold">Product Not Found</div>
 
   return (
@@ -45,7 +45,7 @@ export default function ProductDetails() {
 
       <AnimatePresence>
         {showSuccess && (
-          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="fixed top-28 left-1/2 -translate-x-1/2 z-[100] bg-[#EF6C00] text-white px-8 py-3 rounded-full shadow-xl flex items-center gap-3 font-bold text-sm">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="fixed top-28 left-1/2 -translate-x-1/2 z-[100] bg-[#0ea5e9] text-white px-8 py-3 rounded-full shadow-xl flex items-center gap-3 font-bold text-sm">
             <CheckCircle2 size={18} /> {product.name} added to cart
           </motion.div>
         )}
@@ -55,7 +55,7 @@ export default function ProductDetails() {
         {/* --- FIL D'ARIANE --- */}
         <div className="container mx-auto px-6 pt-10">
           <nav className="text-[10px] text-gray-400 uppercase tracking-[0.2em] flex items-center gap-2">
-            <Link href="/" className="hover:text-[#EF6C00]">Shop</Link> 
+            <Link href="/" className="hover:text-[#0ea5e9]">Shop</Link> 
             <span>/</span> 
             <span className="text-gray-900 font-semibold">{product.name}</span>
           </nav>
@@ -65,13 +65,13 @@ export default function ProductDetails() {
         <section className="container mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div className="bg-[#F9F9F9] rounded-xl border border-gray-100 p-12 flex items-center justify-center relative">
             <img src={product.main_image_url} alt={product.name} className="w-full max-w-[450px] h-auto object-contain mix-blend-multiply" />
-            <button className="absolute top-6 right-6 p-3 bg-white rounded-full shadow-sm hover:text-[#EF6C00] border border-gray-100"><Share2 size={18} /></button>
+            <button className="absolute top-6 right-6 p-3 bg-white rounded-full shadow-sm hover:text-[#0ea5e9] border border-gray-100"><Share2 size={18} /></button>
           </div>
 
           <div className="flex flex-col">
             <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">{product.name}</h1>
             
-            <div className="flex items-center gap-1 mb-6 text-[#EF6C00]">
+            <div className="flex items-center gap-1 mb-6 text-[#0ea5e9]">
               {[...Array(5)].map((_, i) => <span key={i} className="text-lg">★</span>)}
               <span className="text-gray-400 text-[11px] ml-3 font-bold uppercase tracking-widest">(2 CUSTOMER REVIEWS)</span>
             </div>
@@ -96,7 +96,7 @@ export default function ProductDetails() {
               <button 
                 onClick={handleAddToCart}
                 disabled={product.stock <= 0}
-                className="flex-1 min-w-[200px] h-14 bg-[#EF6C00] hover:bg-black text-white rounded-lg font-bold uppercase text-[11px] tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-lg shadow-orange-50 disabled:bg-gray-300"
+                className="flex-1 min-w-[200px] h-14 bg-[#0ea5e9] hover:bg-black text-white rounded-lg font-bold uppercase text-[11px] tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-lg shadow-sky-50 disabled:bg-gray-300"
               >
                 <ShoppingCart size={18} /> {product.stock > 0 ? 'Add To Cart' : 'Out of Stock'}
               </button>
@@ -104,17 +104,17 @@ export default function ProductDetails() {
           </div>
         </section>
 
-        {/* --- BARRE D'AVANTAGES BEIGE --- */}
-        <div className="bg-[#FFF8F1] py-10 border-y border-orange-50">
+        {/* --- BARRE D'AVANTAGES BLUE --- */}
+        <div className="bg-blue-50 py-10 border-y border-sky-50">
           <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="flex items-center justify-center gap-3 text-[11px] font-bold uppercase tracking-[0.15em] text-gray-700">
-              <span className="text-[#EF6C00] text-xl">✔</span> Money Back Guarantee
+              <span className="text-[#0ea5e9] text-xl">✔</span> Money Back Guarantee
             </div>
             <div className="flex items-center justify-center gap-3 text-[11px] font-bold uppercase tracking-[0.15em] text-gray-700">
-              <span className="text-[#EF6C00] text-xl">✔</span> Top Quality Vegan Item
+              <span className="text-[#0ea5e9] text-xl">✔</span> Top Quality Vegan Item
             </div>
             <div className="flex items-center justify-center gap-3 text-[11px] font-bold uppercase tracking-[0.15em] text-gray-700">
-              <span className="text-[#EF6C00] text-xl">✔</span> Fast & Secure Checkout
+              <span className="text-[#0ea5e9] text-xl">✔</span> Fast & Secure Checkout
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function ProductDetails() {
         {/* --- 2ÈME EMPLACEMENT : DESCRIPTION COMPLÈTE (DYNAMIQUE) --- */}
         <section className="container mx-auto px-6 py-24 max-w-4xl">
           <div className="flex gap-10 border-b border-gray-100 mb-12">
-            <button className="pb-5 border-b-2 border-[#EF6C00] font-bold text-[11px] uppercase tracking-[0.2em] text-[#1A1A1A]">Description</button>
+            <button className="pb-5 border-b-2 border-[#0ea5e9] font-bold text-[11px] uppercase tracking-[0.2em] text-[#1A1A1A]">Description</button>
             <button className="pb-5 font-bold text-[11px] uppercase tracking-[0.2em] text-gray-400">Reviews (2)</button>
           </div>
 
