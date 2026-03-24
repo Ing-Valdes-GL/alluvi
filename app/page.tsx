@@ -55,7 +55,7 @@ export default function HomePage() {
     <motion.div 
       initial={{ opacity: 0, x: -40 }} 
       animate={{ opacity: 1, x: 0 }} 
-      className="hidden lg:block relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#EF6C00] flex-shrink-0"
+      className="hidden lg:block relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#1e3a8a] flex-shrink-0"
     >
       <img src="/hero-right-arch.png" className="w-full h-full object-contain p-1 scale-110 z-10 relative" alt="" />
       <div className="absolute bottom-6 left-0 w-full text-center">
@@ -75,7 +75,7 @@ export default function HomePage() {
         Advancing Research with <span className="text-[#0ea5e9] font-bold">Vertex Biolabs</span> Innovation!
       </p>
       
-      <Link href="/products" className="group relative bg-gradient-to-r from-[#EF6C00] to-[#FF8C33] text-white px-14 py-5 rounded-xl font-black uppercase text-sm tracking-[0.2em] shadow-[0_15px_40px_rgba(239,108,0,0.3)] transition-all hover:scale-105">
+      <Link href="/products" className="group relative bg-gradient-to-r from-[#0ea5e9] to-[#38bdf8] text-white px-14 py-5 rounded-xl font-black uppercase text-sm tracking-[0.2em] shadow-[0_15px_40px_rgba(14,165,233,0.3)] transition-all hover:scale-105">
         <span className="flex items-center gap-3">
             Browse All Products <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
         </span>
@@ -97,7 +97,7 @@ export default function HomePage() {
   </div>
 
   {/* MARQUEE FOOTER */}
-  <div className="absolute bottom-0 w-full bg-[#EF6C00] py-4 z-20 overflow-hidden border-t border-white/10">
+  <div className="absolute bottom-0 w-full bg-[#1e3a8a] py-4 z-20 overflow-hidden border-t border-white/10">
     <div className="flex whitespace-nowrap animate-marquee">
       {[1, 2, 3].map((i) => (
         <span key={i} className="text-white font-black text-[12px] uppercase tracking-[0.3em] mx-10">
@@ -115,7 +115,7 @@ export default function HomePage() {
             <h2 className="text-4xl font-black uppercase tracking-tighter">Best Selling Products</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-[#EF6C00] rounded-xl p-10 flex flex-col justify-end min-h-[450px] relative overflow-hidden group">
+            <div className="bg-[#1e3a8a] rounded-xl p-10 flex flex-col justify-end min-h-[450px] relative overflow-hidden group">
                <div className="absolute top-10 left-10 opacity-20 group-hover:scale-110 transition-transform duration-700"><img src="/leaf-bg.png" className="w-32" /></div>
                <div className="relative z-10"><img src="/leaf-white.png" className="w-8 mb-6" /><h3 className="text-3xl font-black text-white leading-tight">Vertex<br/>Biolabs<br/>Research</h3></div>
             </div>
@@ -124,7 +124,7 @@ export default function HomePage() {
                 <div className="aspect-square mb-6 overflow-hidden bg-[#F7F7F7] rounded-lg">
                   <img src={product.main_image_url} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform" />
                 </div>
-                <p className="text-[#EF6C00] text-[10px] font-bold uppercase mb-1">{product.category_name || 'Uncategorized'}</p>
+                <p className="text-[#0ea5e9] text-[10px] font-bold uppercase mb-1">{product.category_name || 'Uncategorized'}</p>
                 <h4 className="font-bold text-sm mb-4 h-10">{product.name}</h4>
                 <p className="text-[#A13BB4] font-black text-lg mb-6">£{product.price}</p>
                 <button onClick={() => addToCart(product)} className="w-full border border-gray-200 py-3 rounded-md text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-colors"><ShoppingCart size={14} /> Add To Cart</button>
@@ -147,7 +147,7 @@ export default function HomePage() {
                 Part of <span className="text-[#0ea5e9] font-bold">Vertex Biolabs'</span> ongoing research program into advanced GLP-1 multi-agonist compounds. This formulation is supplied in controlled batches for laboratory analysis of stability, compound behaviour, and injector system performance.
               </p>
               <p className="text-[11px] font-black uppercase tracking-widest text-gray-400 mb-10">Not for human or veterinary consumption.</p>
-              <Link href="/about" className="bg-[#EF6C00] text-white px-8 py-4 rounded-lg font-black uppercase text-[10px] tracking-widest flex items-center gap-3 w-fit hover:bg-black transition-all shadow-xl shadow-orange-200">
+              <Link href="/about" className="bg-[#0ea5e9] text-white px-8 py-4 rounded-lg font-black uppercase text-[10px] tracking-widest flex items-center gap-3 w-fit hover:bg-black transition-all shadow-xl shadow-sky-200">
                 About Store <ArrowRight size={14} />
               </Link>
             </div>
@@ -156,7 +156,7 @@ export default function HomePage() {
                 <img src="/supplement-box.png" alt="Supplement Box" className="w-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.15)]" />
               </div>
               {/* Forme ondulée en arrière plan comme sur la maquette */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#EF6C00]/5 -z-0 rounded-[40%_60%_70%_30%/40%_50%_60%_70%] animate-pulse" />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#0ea5e9]/5 -z-0 rounded-[40%_60%_70%_30%/40%_50%_60%_70%] animate-pulse" />
             </div>
           </div>
         </div>
@@ -168,12 +168,12 @@ export default function HomePage() {
           <div className="bg-[#050A30] rounded-3xl overflow-hidden flex flex-col md:flex-row items-center relative min-h-[380px]">
             <div className="flex-1 p-12 lg:p-20 z-10">
               <h3 className="text-white text-4xl md:text-5xl font-black mb-4 leading-none tracking-tighter">No Prep. No Hassle.<br/>Just Precision Dosing.</h3>
-              <p className="text-[#EF6C00] text-2xl font-black mb-10">Upto 35% off today!</p>
+              <p className="text-[#0ea5e9] text-2xl font-black mb-10">Upto 35% off today!</p>
               <Link href="/products" className="inline-flex items-center gap-3 border-2 border-white/20 text-white px-8 py-3 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all">
                 Shop Now <ArrowRight size={14} />
               </Link>
             </div>
-            <div className="flex-1 bg-[#EF6C00] w-full h-full min-h-[380px] flex items-center justify-center relative">
+            <div className="flex-1 bg-[#1e3a8a] w-full h-full min-h-[380px] flex items-center justify-center relative">
                <div className="absolute left-0 top-0 bottom-0 w-24 bg-[#050A30] hidden md:block" style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }} />
                <div className="relative z-10 flex flex-col items-center">
                  <h4 className="text-white text-7xl font-black opacity-40 absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg]">Vertex Biolabs</h4>
@@ -229,7 +229,7 @@ export default function HomePage() {
               <img src={addedProduct.main_image_url} className="w-20 h-20 mx-auto object-contain mb-4" />
               <h6 className="font-bold text-sm mb-6">{addedProduct.name}</h6>
               <div className="flex gap-4">
-                <button onClick={() => setAddedProduct(null)} className="flex-1 bg-[#EF6C00] text-white py-3 rounded-md font-black uppercase text-[10px]">Continue</button>
+                <button onClick={() => setAddedProduct(null)} className="flex-1 bg-[#0ea5e9] text-white py-3 rounded-md font-black uppercase text-[10px]">Continue</button>
                 <Link href="/cart" className="flex-1 bg-black text-white py-3 rounded-md font-black uppercase text-[10px] flex items-center justify-center gap-2">Cart <ShoppingCart size={14}/></Link>
               </div>
             </motion.div>
@@ -239,7 +239,7 @@ export default function HomePage() {
         {/* --- SECTION FINALE : CALL TO ACTION (Reproduction Maquette) --- */}
       <section className="relative bg-[#050505] py-32 overflow-hidden border-t border-white/5">
         {/* Effet de lueur subtile en arrière-plan */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#EF6C00]/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#0ea5e9]/10 blur-[120px] rounded-full pointer-events-none" />
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col items-center text-center">
@@ -249,7 +249,7 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[#EF6C00] font-bold text-lg md:text-xl mb-8 tracking-tight"
+              className="text-[#0ea5e9] font-bold text-lg md:text-xl mb-8 tracking-tight"
             >
               A Vegan Haven for Heartful Living
             </motion.p>
@@ -295,7 +295,7 @@ export default function HomePage() {
                transition-all duration-300 ease-out"
   >
     {/* Fond Orange qui glisse/apparaît au hover */}
-    <span className="absolute inset-0 bg-[#EF6C00] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+    <span className="absolute inset-0 bg-[#0ea5e9] translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
 
     {/* Contenu du bouton (Texte + Icône) */}
     <span className="relative z-10 flex items-center gap-3">
@@ -315,7 +315,7 @@ export default function HomePage() {
         </div>
       </section>
 
-     
+      
       <Footer />
       <style jsx global>{`
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
