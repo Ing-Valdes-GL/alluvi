@@ -21,7 +21,7 @@ export default function AdminDashboard() {
     id: null,
     name: '',
     price: '',
-    category_name: 'Vegan Food & Drinks', // Valeur par défaut de ta maquette
+    category_name: 'Compound', // Valeur par défaut de ta maquette
     description: '',
     stock: 0, 
     is_active: true, 
