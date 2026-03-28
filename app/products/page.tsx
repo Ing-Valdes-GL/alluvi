@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ShoppingCart, Search, CheckCircle2, Percent, Mail, ArrowRight } from 'lucide-react'
+import { ShoppingCart, Search, CheckCircle2, Percent, Mail, ArrowRight, Shield } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
@@ -176,6 +176,12 @@ export default function Header() {
                   {product.category_name || 'Uncategorized'}
                 </span>
 
+                {/* CERTIFIED BADGE */}
+                <div className="flex items-center gap-1.5 mb-2 bg-blue-50 w-fit px-2 py-1 rounded-md">
+                  <Shield size={12} className="text-[#1e3a8a]" />
+                  <span className="text-[#1e3a8a] text-[9px] font-black uppercase tracking-wider">Certified Vertex Product</span>
+                </div>
+
                 {/* NOM CLIQUABLE */}
                 <Link href={`/products/${product.id}`}>
                   <h3 className="font-black text-gray-900 uppercase text-lg mb-4 leading-tight group-hover:text-[#0ea5e9] transition-colors cursor-pointer">
@@ -186,13 +192,14 @@ export default function Header() {
                 <p className="text-gray-400 text-xs mb-4 line-clamp-2 h-8">{product.description}</p>
                 
                 <div className="mt-auto">
-                  <div className="flex items-baseline gap-2 mb-4">
+                  <div className="flex items-baseline gap-2 mb-1">
                     <p className="text-[#0ea5e9] font-black text-2xl">£{product.price}</p>
                     {product.on_sale && product.sale_price && (
                       <p className="text-gray-300 line-through text-sm">£{product.price}</p>
                     )}
                   </div>
-                  
+                  <p className="text-gray-500 text-xs mb-4">⭐ 4.6 (25 Reviews)</p>
+
                   <button 
                     onClick={(e) => addToCart(e, product)} 
                     className="w-full bg-black text-white py-4 rounded-xl font-black uppercase text-[10px] hover:bg-[#0ea5e9] transition-all flex items-center justify-center gap-2 group/btn"

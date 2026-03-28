@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Minus, Plus, ShoppingCart, CheckCircle2, Share2, Facebook, Twitter, Mail } from 'lucide-react'
+import { Minus, Plus, ShoppingCart, CheckCircle2, Share2, Facebook, Twitter, Mail, Shield } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -69,6 +69,10 @@ export default function ProductDetails() {
           </div>
 
           <div className="flex flex-col">
+            <div className="flex items-center gap-1.5 mb-2 bg-blue-50 w-fit px-2 py-1 rounded-md">
+              <Shield size={14} className="text-[#1e3a8a]" />
+              <span className="text-[#1e3a8a] text-[10px] font-black uppercase tracking-wider">Certified Vertex Product</span>
+            </div>
             <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">{product.name}</h1>
             
             <div className="flex items-center gap-1 mb-6 text-[#0ea5e9]">
@@ -83,6 +87,8 @@ export default function ProductDetails() {
                 dangerouslySetInnerHTML={{ __html: product.description || "No description available." }}
               />
             </div>
+
+            <p className="text-gray-500 text-sm mb-4">⭐ 4.6 (25 Reviews)</p>
 
             <p className="text-[#D32F2F] text-4xl font-bold mb-10">£{product.price}</p>
 

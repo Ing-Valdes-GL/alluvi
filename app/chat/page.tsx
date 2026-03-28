@@ -171,20 +171,20 @@ function ChatContent() {
       <main className="flex-1 container mx-auto max-w-5xl px-4 py-8 flex flex-col min-h-0">
         <div className="flex items-center justify-between mb-6 px-2">
             <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-[#FFA52F] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-orange-500/20">
+                <div className="w-12 h-12 bg-[#1e3a8a] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
                     <MessageSquare size={24} />
                 </div>
                 <div>
-                    <h1 className="text-2xl font-black tracking-tighter uppercase leading-none">Secure <span className="text-[#FFA52F] italic">Channel</span></h1>
+                    <h1 className="text-2xl font-black tracking-tighter uppercase leading-none">Secure <span className="text-[#0ea5e9] italic">Channel</span></h1>
                     <div className="flex items-center gap-2 mt-1">
                         <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                         <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Support Protocol Active</span>
                     </div>
                 </div>
             </div>
-            <div className="hidden md:flex items-center gap-2 bg-[#FFA52F]/10 px-4 py-2 rounded-full border border-[#FFA52F]/20">
-                <Shield size={14} className="text-[#FFA52F]" />
-                <span className="text-[9px] font-black uppercase tracking-tighter text-[#FFA52F]">End-to-End Encrypted</span>
+            <div className="hidden md:flex items-center gap-2 bg-[#1e3a8a]/10 px-4 py-2 rounded-full border border-[#1e3a8a]/20">
+                <Shield size={14} className="text-[#0ea5e9]" />
+                <span className="text-[9px] font-black uppercase tracking-tighter text-[#1e3a8a]">End-to-End Encrypted</span>
             </div>
         </div>
 
@@ -192,7 +192,7 @@ function ChatContent() {
           <div className="flex-1 overflow-y-auto p-6 md:p-10 space-y-8 scrollbar-hide">
             {loading ? (
                 <div className="h-full flex items-center justify-center">
-                    <div className="w-10 h-10 border-4 border-[#FFA52F] border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-10 h-10 border-4 border-[#1e3a8a] border-t-transparent rounded-full animate-spin"></div>
                 </div>
             ) : messages.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center opacity-30">
@@ -208,7 +208,7 @@ function ChatContent() {
                     <div className={`max-w-[85%] md:max-w-[70%] ${isOwn ? 'items-end' : 'items-start'} flex flex-col`}>
                       <div className={`px-6 py-4 rounded-[1.8rem] text-sm font-medium shadow-sm ${
                         isOwn 
-                          ? 'bg-[#FFA52F] text-white rounded-tr-none' 
+                          ? 'bg-[#0ea5e9] text-white rounded-tr-none' 
                           : theme === 'dark' ? 'bg-white/5 text-white rounded-tl-none border border-white/5' : 'bg-gray-100 text-gray-800 rounded-tl-none'
                       }`}>
                         {msg.message_type === 'text' && <p className="leading-relaxed">{msg.content}</p>}
@@ -227,7 +227,7 @@ function ChatContent() {
                         </span>
                         {isOwn && (
                             <div className="opacity-40">
-                                {msg.is_read ? <CheckCheck size={12} className="text-[#FFA52F]" /> : <Check size={12} />}
+                                {msg.is_read ? <CheckCheck size={12} className="text-[#0ea5e9]" /> : <Check size={12} />}
                             </div>
                         )}
                       </div>
@@ -240,13 +240,13 @@ function ChatContent() {
           </div>
 
           <div className={`p-4 md:p-6 border-t ${theme === 'dark' ? 'border-white/5 bg-black/40' : 'border-gray-100 bg-gray-50/50'}`}>
-            <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-2 rounded-[2rem] shadow-inner border border-black/5 dark:border-white/5 focus-within:ring-2 ring-orange-500/20 transition-all">
+            <div className="flex items-center gap-3 bg-white dark:bg-gray-800 p-2 rounded-[2rem] shadow-inner border border-black/5 dark:border-white/5 focus-within:ring-2 ring-blue-500/20 transition-all">
               <button 
                 onClick={() => fileInputRef.current?.click()}
                 disabled={uploading}
-                className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-[#FFA52F]"
+                className="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-[#0ea5e9]"
               >
-                {uploading ? <div className="w-4 h-4 border-2 border-[#FFA52F] border-t-transparent rounded-full animate-spin"></div> : <Paperclip size={20} />}
+                {uploading ? <div className="w-4 h-4 border-2 border-[#0ea5e9] border-t-transparent rounded-full animate-spin"></div> : <Paperclip size={20} />}
               </button>
               
               <input type="file" ref={fileInputRef} onChange={handleFileUpload} accept="image/*" className="hidden" />
@@ -263,7 +263,7 @@ function ChatContent() {
               <button
                 onClick={sendMessage}
                 disabled={!newMessage.trim() || sending}
-                className="w-12 h-12 bg-[#FFA52F] text-white flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-all disabled:opacity-20 shadow-lg shadow-orange-500/30"
+                className="w-12 h-12 bg-[#0ea5e9] text-white flex items-center justify-center rounded-full hover:scale-105 active:scale-95 transition-all disabled:opacity-20 shadow-lg shadow-sky-500/30"
               >
                 <Send size={18} />
               </button>
@@ -283,7 +283,7 @@ function ChatContent() {
 // 2. Export par défaut avec Suspense
 export default function ChatPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center italic text-[#FFA52F] uppercase text-xs tracking-widest">Initializing Secure Channel...</div>}>
+    <Suspense fallback={<div className="min-h-screen bg-black flex items-center justify-center italic text-[#0ea5e9] uppercase text-xs tracking-widest">Initializing Secure Channel...</div>}>
       <ChatContent />
     </Suspense>
   )

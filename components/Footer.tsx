@@ -73,7 +73,7 @@ export default function Footer() {
           </div>
 
           {/* Quick Links */}
-          <div className="col-span-1 md:col-span-3">
+          <div className="col-span-1 md:col-span-2">
             <h3 className="font-black text-sm uppercase tracking-[0.4em] mb-10 text-sky-500">Explore</h3>
             <ul className="space-y-6">
               {[
@@ -88,6 +88,63 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+            </ul>
+          </div>
+
+          {/* Global Network Section */}
+          <div className="col-span-1 md:col-span-3">
+            <h3 className="font-black text-sm uppercase tracking-[0.4em] mb-10 text-sky-500">Our Global Network</h3>
+            <ul className="space-y-4">
+              <li>
+                <a 
+                  href="https://maps.app.goo.gl/ojt7ysNJj8QEqsAQA" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-sky-500 hover:text-[#1e3a8a] transition-colors"
+                >
+                  <span className="text-base">🇺🇸</span> USA (Boston – HQ)
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://maps.app.goo.gl/Z2vKN9d6wnnX1BfA7" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-sky-500 hover:text-[#1e3a8a] transition-colors"
+                >
+                  <span className="text-base">🇨🇦</span> Canada (Toronto)
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://maps.app.goo.gl/6d53TgwzGihrafSF7" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-sky-500 hover:text-[#1e3a8a] transition-colors"
+                >
+                  <span className="text-base">🇬🇧</span> UK (London)
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://maps.app.goo.gl/EKz9EbtBHh7jRKKp9" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-sky-500 hover:text-[#1e3a8a] transition-colors"
+                >
+                  <span className="text-base">🇩🇪</span> Germany (Munich)
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="https://maps.app.goo.gl/paHStiGfzqgjaZz89" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-sky-500 hover:text-[#1e3a8a] transition-colors"
+                >
+                  <span className="text-base">🇦🇺</span> Australia (Sydney)
+                </a>
+              </li>
             </ul>
           </div>
 
