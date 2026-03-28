@@ -75,10 +75,7 @@ export default function ProductDetails() {
             </div>
             <h1 className="text-3xl md:text-5xl font-bold mb-4 tracking-tight">{product.name}</h1>
             
-            <div className="flex items-center gap-1 mb-6 text-[#0ea5e9]">
-              {[...Array(5)].map((_, i) => <span key={i} className="text-lg">★</span>)}
-              <span className="text-gray-400 text-[11px] ml-3 font-bold uppercase tracking-widest">(2 CUSTOMER REVIEWS)</span>
-            </div>
+         
 
             {/* 1ER EMPLACEMENT : EXTRAIT DE LA DESCRIPTION (DYNAMIQUE) */}
             <div className="mb-8 border-t border-gray-100 pt-6">
