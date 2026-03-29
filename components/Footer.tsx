@@ -192,7 +192,7 @@ export default function Footer() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[10px] font-black uppercase tracking-widest opacity-40">Headquarters</span>
-                  <span className="text-xs font-black uppercase tracking-widest">London, United Kingdom</span>
+                  <span className="text-xs font-black uppercase tracking-widest">USA, Boston</span>
                 </div>
               </li>
             </ul>
