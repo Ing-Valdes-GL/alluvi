@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 
   // Icônes du navigateur
   icons: {
-    icon: '/hero-left-arch.png',
+    icon: '/logo-share.png',
     apple: '/apple-touch-icon.png',
   },
 }

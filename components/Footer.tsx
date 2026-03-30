@@ -163,7 +163,7 @@ export default function Footer() {
               </li>
 
               <li className="flex items-center gap-5 group">
-                <a href="https://wa.me/+237692118391" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5">
+                <a href="https://wa.me/+15674168350" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5">
                   <div className={`p-4 rounded-2xl transition-all ${theme === 'dark' ? 'bg-gray-900 group-hover:bg-green-500' : 'bg-gray-100 group-hover:bg-green-500'} group-hover:text-white`}>
                     <Phone size={20} />
                   </div>
@@ -175,7 +175,7 @@ export default function Footer() {
               </li>
 
               <li className="flex items-center gap-5 group">
-                <a href="https://t.me/+237692118391" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5">
+                <a href="https://t.me/++15674168350" target="_blank" rel="noopener noreferrer" className="flex items-center gap-5">
                   <div className={`p-4 rounded-2xl transition-all ${theme === 'dark' ? 'bg-gray-900 group-hover:bg-blue-500' : 'bg-gray-100 group-hover:bg-blue-500'} group-hover:text-white`}>
                     <MessageCircle size={20} />
                   </div>
