@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Minus, Plus, ShoppingCart, CheckCircle2, Share2, Facebook, Twitter, Mail, Shield } from 'lucide-react'
+import { Minus, Plus, ShoppingCart, CheckCircle2, Share2, X, Shield, FileText } from 'lucide-react'
 import Link from 'next/link'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
@@ -15,6 +15,7 @@ export default function ProductDetails() {
   const [loading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [showCOAModal, setShowCOAModal] = useState(false)
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -103,6 +104,16 @@ export default function ProductDetails() {
               >
                 <ShoppingCart size={18} /> {product.stock > 0 ? 'Add To Cart' : 'Out of Stock'}
               </button>
+
+              {/* View COA Button - Only shown if product has COA */}
+              {product.coa_url && (
+                <button
+                  onClick={() => setShowCOAModal(true)}
+                  className="h-14 px-6 border border-gray-200 hover:border-orange-500 text-gray-600 hover:text-orange-500 rounded-lg font-bold uppercase text-[10px] tracking-[0.15em] transition-all flex items-center justify-center gap-2 bg-transparent"
+                >
+                  <FileText size={16} /> View COA
+                </button>
+              )}
             </div>
           </div>
         </section>
@@ -147,6 +158,81 @@ export default function ProductDetails() {
       </main>
 
       <Footer />
+
+      {/* COA Modal */}
+      <AnimatePresence>
+        {showCOAModal && product?.coa_url && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => setShowCOAModal(false)}
+              className="fixed inset-0 bg-black/40 backdrop-blur-md z-[200]"
+            />
+            <div className="fixed inset-0 z-[201] flex items-center justify-center p-4 sm:p-6 pointer-events-none">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                onClick={(e) => e.stopPropagation()}
+                className="w-full max-w-4xl max-h-[85vh] bg-white rounded-3xl shadow-2xl overflow-hidden pointer-events-auto"
+              >
+                {/* Header */}
+                <div className="sticky top-0 z-10 flex items-center justify-between px-6 py-5 border-b border-slate-200 bg-white/80 backdrop-blur-sm">
+                  <div className="flex items-center gap-3">
+                    <FileText className="w-6 h-6 text-[#0ea5e9]" />
+                    <h3 className="text-xl font-black text-slate-900 tracking-tight">
+                      Certificate of Analysis
+                    </h3>
+                  </div>
+                  <button
+                    onClick={() => setShowCOAModal(false)}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-100 hover:bg-orange-100 text-slate-500 hover:text-orange-500 transition-all duration-200 group"
+                    aria-label="Close modal"
+                  >
+                    <X size={20} className="group-hover:rotate-90 transition-transform duration-200" />
+                  </button>
+                </div>
+                
+                {/* Content */}
+                <div className="overflow-y-auto max-h-[calc(85vh-140px)] bg-slate-50">
+                  {product.coa_url.endsWith('.pdf') ? (
+                    <iframe
+                      src={product.coa_url}
+                      className="w-full h-[600px]"
+                      title="Certificate of Analysis"
+                    />
+                  ) : (
+                    <img
+                      src={product.coa_url}
+                      alt="Certificate of Analysis"
+                      className="w-full h-auto max-h-[600px] object-contain"
+                    />
+                  )}
+                </div>
+                
+                {/* Footer */}
+                <div className="sticky bottom-0 px-6 py-4 border-t border-slate-200 bg-white flex justify-between items-center">
+                  <p className="text-sm text-slate-500">
+                    <span className="font-semibold">Product:</span> {product.name}
+                  </p>
+                  <a
+                    href={product.coa_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-[#0ea5e9] hover:bg-sky-600 text-white px-6 py-3 rounded-xl font-bold text-sm uppercase tracking-wider transition-all duration-200 shadow-lg shadow-sky-500/25"
+                  >
+                    Open in New Tab
+                  </a>
+                </div>
+              </motion.div>
+            </div>
+          </>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

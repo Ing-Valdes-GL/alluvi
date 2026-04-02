@@ -5,14 +5,16 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { Plus, Edit3, Trash2, Eye, EyeOff, Upload, X, ImageIcon, Loader2, ChevronDown } from 'lucide-react'
+import { Plus, Edit3, Trash2, Eye, EyeOff, Upload, X, ImageIcon, Loader2, ChevronDown, FileText, CheckCircle } from 'lucide-react'
 
 export default function AdminDashboard() {
   const router = useRouter()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const coaInputRef = useRef<HTMLInputElement>(null)
   
   const [loading, setLoading] = useState(true)
   const [uploading, setUploading] = useState(false)
+  const [coaUploading, setCoaUploading] = useState(false)
   const [showModal, setShowModal] = useState(false)
   const [products, setProducts] = useState<any[]>([])
   
@@ -25,7 +27,8 @@ export default function AdminDashboard() {
     description: '',
     stock: 0, 
     is_active: true, 
-    main_image_url: '' // Correction du nom de la colonne image ici
+    main_image_url: '',
+    coa_url: '' // COA field
   })
 
   // 1. CHARGEMENT DES PRODUITS (Correction de l'appel ici aussi pour être sûr)
@@ -33,7 +36,7 @@ export default function AdminDashboard() {
     setLoading(true)
     const { data, error } = await supabase
       .from('products')
-      .select('id, name, price, description, stock, is_active, category_name, main_image_url, created_at')
+      .select('id, name, price, description, stock, is_active, category_name, main_image_url, coa_url, created_at')
       .order('created_at', { ascending: false })
     
     if (error) console.error("Erreur:", error.message)
@@ -73,11 +76,54 @@ export default function AdminDashboard() {
     }
   }
 
+  // UPLOAD COA (Certificate of Analysis) - PDF or Image to 'certificates' bucket
+  const handleCOAUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setCoaUploading(true)
+      if (!e.target.files || e.target.files.length === 0) return
+
+      const file = e.target.files[0]
+      
+      // Check file size (2MB limit)
+      if (file.size > 2 * 1024 * 1024) {
+        alert("File size exceeds 2MB limit. Please upload a smaller file.")
+        return
+      }
+      
+      // Validate file type (PDF or Image)
+      const validTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/webp']
+      if (!validTypes.includes(file.type)) {
+        alert("Invalid file type. Please upload PDF, JPEG, PNG, or WebP.")
+        return
+      }
+
+      const fileExt = file.name.split('.').pop()
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`
+      const filePath = `coa/${fileName}`
+
+      const { error: uploadError } = await supabase.storage
+        .from('certificates')
+        .upload(filePath, file)
+
+      if (uploadError) throw uploadError
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('certificates')
+        .getPublicUrl(filePath)
+
+      // Update form with COA URL
+      setForm({ ...form, coa_url: publicUrl })
+    } catch (error: any) {
+      alert("Erreur upload COA: " + error.message)
+    } finally {
+      setCoaUploading(false)
+    }
+  }
+
   // 3. SOUMISSION DU FORMULAIRE (INSERT / UPDATE)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
-    // Payload aligné sur le schéma de la base de données
     const payload = {
       name: form.name,
       price: parseFloat(form.price),
@@ -85,7 +131,8 @@ export default function AdminDashboard() {
       description: form.description,
       stock: form.stock,
       is_active: form.is_active, 
-      main_image_url: form.main_image_url // Correction ici
+      main_image_url: form.main_image_url,
+      coa_url: form.coa_url // Include COA URL in payload
     }
 
     let result;
@@ -125,8 +172,8 @@ export default function AdminDashboard() {
 
   const resetForm = () => {
     setForm({ 
-      id: null, name: '', price: '', category_name: 'Vegan Food & Drinks', 
-      description: '', stock: 0, is_active: true, main_image_url: '' 
+      id: null, name: '', price: '', category_name: 'Compound', 
+      description: '', stock: 0, is_active: true, main_image_url: '', coa_url: ''
     })
   }
 
@@ -177,17 +224,44 @@ export default function AdminDashboard() {
                   </div>
                   
                   <div>
-                    <div className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center mb-2">
                       {/* MODIFICATION : Prix réduit à text-xl */}
                       <span className="text-xl font-black text-black">£{Number(product.price).toFixed(2)}</span>
                       <span className="text-[9px] text-gray-400 font-bold uppercase tracking-widest">Stock: {product.stock}</span>
+                    </div>
+                    {/* COA Status Indicator */}
+                    <div className="mb-4">
+                      {product.coa_url ? (
+                        <div className="flex items-center gap-1.5 text-[9px] text-green-600 font-bold uppercase tracking-wider">
+                          <CheckCircle size={10} className="text-green-500" />
+                          <span>COA Available</span>
+                          <a 
+                            href={product.coa_url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="ml-1 text-[#EF6C00] hover:underline"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            View
+                          </a>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1.5 text-[9px] text-gray-400 font-bold uppercase tracking-wider">
+                          <FileText size={10} />
+                          <span>No COA</span>
+                        </div>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-4 gap-2">
                       <button 
                         onClick={() => { 
-                          // CORRECTION : On s'assure de passer main_image_url lors de la modification
-                          setForm({...product, price: product.price.toString()}); 
+                          // Pass all product data including coa_url when editing
+                          setForm({
+                            ...product, 
+                            price: product.price.toString(),
+                            coa_url: product.coa_url || ''
+                          }); 
                           setShowModal(true); 
                         }}
                         className="col-span-3 bg-black text-white py-2.5 rounded-lg font-bold text-[9px] uppercase tracking-widest flex items-center justify-center gap-1.5 hover:bg-[#EF6C00] transition-colors"
@@ -232,18 +306,18 @@ export default function AdminDashboard() {
 
               <div className="space-y-1">
                 <label className="text-[10px] font-black uppercase text-gray-400">Category *</label>
-                <div className="relative">
-                  <select 
-                    className="w-full bg-gray-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-[#EF6C00] appearance-none text-black text-sm font-medium" 
-                    value={form.category_name} 
-                    onChange={e => setForm({...form, category_name: e.target.value})}
-                  >
-                    <option value="Compound">Compound</option>
-                    <option value="Retatrutide">Retatrutide</option>
-                    
-                  </select>
-                  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
-                </div>
+               <div className="relative">
+  <select 
+    className="w-full bg-gray-50 p-3 rounded-xl border-none focus:ring-2 focus:ring-[#EF6C00] appearance-none text-black text-sm font-medium" 
+    value={form.category_name} 
+    onChange={e => setForm({...form, category_name: e.target.value})}
+  >
+    <option value="Compound">Compound</option>
+    <option value="Retatrutide">Retatrutide</option>
+    <option value="Cosmetic">Cosmetic</option>
+  </select>
+  <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" size={16} />
+</div>
               </div>
 
               <div className="space-y-1">
@@ -285,6 +359,45 @@ export default function AdminDashboard() {
                     <div className="mt-2 text-xs text-green-600 font-medium flex items-center gap-1.5">
                         <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
                         Image prête
+                    </div>
+                )}
+              </div>
+
+              {/* COA Upload Section */}
+              <div className="space-y-2 pt-2 border-t border-gray-100 mt-4">
+                <label className="text-[10px] font-black uppercase text-gray-400 flex items-center gap-2">
+                  <FileText size={12} className="text-[#EF6C00]" />
+                  Certificate of Analysis (COA)
+                </label>
+                <div className="flex gap-2">
+                  <input 
+                    placeholder="COA URL..." 
+                    className="flex-1 bg-gray-50 p-3 rounded-xl border-none text-xs text-black" 
+                    value={form.coa_url} 
+                    onChange={e => setForm({...form, coa_url: e.target.value})} 
+                  />
+                  <input 
+                    type="file" 
+                    hidden 
+                    ref={coaInputRef} 
+                    onChange={handleCOAUpload} 
+                    accept=".pdf,image/*" 
+                  />
+                  <button 
+                    type="button" 
+                    onClick={() => coaInputRef.current?.click()}
+                    disabled={coaUploading}
+                    className="bg-[#EF6C00] text-white px-4 py-2 rounded-xl flex items-center gap-2 text-[9px] font-black uppercase tracking-widest disabled:opacity-50 transition-all hover:bg-black"
+                  >
+                    {coaUploading ? <Loader2 className="animate-spin" size={14} /> : <Upload size={14} />} 
+                    Upload COA
+                  </button>
+                </div>
+                <p className="text-[9px] text-gray-400">Max 2MB • PDF or Image</p>
+                {form.coa_url && (
+                    <div className="mt-2 text-xs text-green-600 font-medium flex items-center gap-1.5">
+                        <CheckCircle size={12} />
+                        COA uploaded and ready
                     </div>
                 )}
               </div>

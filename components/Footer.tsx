@@ -5,12 +5,17 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Activity, Mail, Phone, MapPin, ShieldCheck, ArrowRight, MessageCircle, Send } from 'lucide-react'
 import { useTheme } from '@/components/ThemeProvider'
+import LegalModal from '@/components/legal/LegalModal'
+import PrivacyContent from '@/components/legal/PrivacyContent'
+import RefundContent from '@/components/legal/RefundContent'
 
 export default function Footer() {
   const { theme } = useTheme()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false)
+  const [showRefundModal, setShowRefundModal] = useState(false)
 
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -218,14 +223,41 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className={`mt-10 pt-10 border-t ${theme === 'dark' ? 'border-white/5' : 'border-gray-100'} flex flex-col md:flex-row justify-between items-center gap-8`}>
           <p className="text-[10px] font-black uppercase tracking-[0.2em] opacity-40">
-            © {new Date().getFullYear()} Vertex Biolabs. All rights reserved.
+            {new Date().getFullYear()} Vertex Biolabs. All rights reserved.
           </p>
           <div className="flex gap-10">
-            <Link href="#" className="text-[10px] font-black uppercase tracking-widest hover:text-sky-500 transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-[10px] font-black uppercase tracking-widest hover:text-sky-500 transition-colors">Terms of Service</Link>
+            <button 
+              onClick={() => setShowPrivacyModal(true)}
+              className="text-[10px] font-black uppercase tracking-widest hover:text-sky-500 transition-colors"
+            >
+              Privacy Policy
+            </button>
+            <button 
+              onClick={() => setShowRefundModal(true)}
+              className="text-[10px] font-black uppercase tracking-widest hover:text-sky-500 transition-colors"
+            >
+              Refund Policy
+            </button>
           </div>
         </div>
       </div>
+      {/* Privacy Policy Modal */}
+      <LegalModal
+        isOpen={showPrivacyModal}
+        onClose={() => setShowPrivacyModal(false)}
+        title="Privacy Policy"
+      >
+        <PrivacyContent />
+      </LegalModal>
+
+      {/* Refund Policy Modal */}
+      <LegalModal
+        isOpen={showRefundModal}
+        onClose={() => setShowRefundModal(false)}
+        title="Refund & Return Policy"
+      >
+        <RefundContent />
+      </LegalModal>
     </footer>
   )
 }

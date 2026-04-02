@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { User, CreditCard, Apple, Banknote, Bitcoin, X, Mail } from 'lucide-react'
+import LegalModal from '@/components/legal/LegalModal'
+import PrivacyContent from '@/components/legal/PrivacyContent'
+import RefundContent from '@/components/legal/RefundContent'
+import { User, CreditCard, Apple, Banknote, Bitcoin, X, Mail, CheckSquare, Square } from 'lucide-react'
 
 export default function CheckoutPage() {
   const router = useRouter()
@@ -25,6 +28,11 @@ export default function CheckoutPage() {
     postcode: '', phone: '', email: '',
     paymentMethod: 'bank_transfer'
   })
+  
+  // Legal compliance states
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false)
+  const [showRefundModal, setShowRefundModal] = useState(false)
+  const [agreedToPolicies, setAgreedToPolicies] = useState(false)
 
   useEffect(() => {
     // Restaurer le panier
@@ -234,10 +242,50 @@ export default function CheckoutPage() {
               <PaymentOption id="crypto" label="Crypto" icon={<Bitcoin size={18} className="text-sky-500"/>} current={formData.paymentMethod} set={(v:any) => setFormData({...formData, paymentMethod: v})} />
             </div>
 
+            {/* Legal Compliance Checkbox */}
+            <div className="mt-6 pt-6 border-t border-sky-100">
+              <label 
+                className="flex items-start gap-3 cursor-pointer group"
+                onClick={() => setAgreedToPolicies(!agreedToPolicies)}
+              >
+                <div className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${agreedToPolicies ? 'bg-[#0ea5e9] border-[#0ea5e9]' : 'border-slate-300 group-hover:border-[#0ea5e9]'}`}>
+                  {agreedToPolicies && <CheckSquare size={14} className="text-white" />}
+                </div>
+                <p className="text-sm text-slate-600 leading-relaxed">
+                  I have read and agree to the{' '}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setShowPrivacyModal(true)
+                    }}
+                    className="text-[#0ea5e9] font-bold underline decoration-2 underline-offset-2 hover:text-[#1e3a8a] transition-colors"
+                  >
+                    Privacy Policy
+                  </button>
+                  {' '}and{' '}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setShowRefundModal(true)
+                    }}
+                    className="text-[#0ea5e9] font-bold underline decoration-2 underline-offset-2 hover:text-[#1e3a8a] transition-colors"
+                  >
+                    Refund Policy
+                  </button>
+                  . I understand that all research compounds are for laboratory use only and acknowledge the strict no-return policy.
+                </p>
+              </label>
+              {!agreedToPolicies && (
+                <p className="text-xs text-red-500 mt-2 ml-8">You must agree to the policies to complete your purchase.</p>
+              )}
+            </div>
+
             <button 
               onClick={handlePlaceOrder}
-              disabled={isSubmitting}
-              className="w-full bg-[#0ea5e9] text-white py-4 rounded-2xl font-bold mt-8 hover:bg-sky-600 transition-all shadow-lg active:scale-95 disabled:opacity-50"
+              disabled={isSubmitting || !agreedToPolicies}
+              className="w-full bg-[#0ea5e9] text-white py-4 rounded-2xl font-bold mt-6 hover:bg-sky-600 transition-all shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Processing...' : 'Place Order'}
             </button>
@@ -268,6 +316,24 @@ export default function CheckoutPage() {
           </div>
         </div>
       )}
+
+      {/* Privacy Policy Modal */}
+      <LegalModal
+        isOpen={showPrivacyModal}
+        onClose={() => setShowPrivacyModal(false)}
+        title="Privacy Policy"
+      >
+        <PrivacyContent />
+      </LegalModal>
+
+      {/* Refund Policy Modal */}
+      <LegalModal
+        isOpen={showRefundModal}
+        onClose={() => setShowRefundModal(false)}
+        title="Refund & Return Policy"
+      >
+        <RefundContent />
+      </LegalModal>
     </div>
   )
 }
