@@ -6,6 +6,9 @@ import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { TiltCard, Reveal3D, Float3D, FlipIn, Spin3D, Scene3D } from '@/components/Motion3D'
+import { ScrollProgress, SplitText, FadeUp, DrawLine, Magnetic, Shimmer, Aurora, ParallaxY } from '@/components/MotionDesign'
+import { HeroScrollFade, ScrollHighlightText, ScrollScale, ExpandOnScroll } from '@/components/AppleScroll'
 import { ShoppingCart, ArrowRight, X, Smartphone, Zap, ShieldCheck } from 'lucide-react'
 
 export default function HomePage() {
@@ -37,7 +40,8 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-[#0A0A0B]">
+    <div data-no-reveal className="min-h-screen bg-white text-[#0A0A0B]">
+      <ScrollProgress />
       <Header />
 
 {/* --- HERO SECTION : REPRODUCTION EXACTE MAQUETTE --- */}
@@ -49,52 +53,73 @@ export default function HomePage() {
                 backgroundSize: '6px 6px' }}>
   </div>
 
+  <Aurora />
+
+  {/* DÉCOR 3D ANIMÉ */}
+  <Scene3D className="opacity-60" />
+
+  <HeroScrollFade className="relative z-10 w-full">
   <div className="container mx-auto px-4 relative z-10 flex items-center justify-between">
     
     {/* ARCHE GAUCHE (WEIGHT LOSS) */}
+    <Float3D className="hidden lg:block flex-shrink-0">
     <motion.div 
       initial={{ opacity: 0, x: -40 }} 
       animate={{ opacity: 1, x: 0 }} 
-      className="hidden lg:block relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#1e3a8a] flex-shrink-0"
+      className="relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#1e3a8a]"
     >
       <img src="/hero-right-arch.png" className="w-full h-full object-contain p-1 scale-110 z-10 relative" alt="" />
       <div className="absolute bottom-6 left-0 w-full text-center">
         
       </div>
     </motion.div>
+    </Float3D>
 
     {/* BLOC CENTRAL : TYPOGRAPHIE MAQUETTE */}
     <div className="flex flex-col items-center text-center flex-grow px-10">
       <img src="/leaf-icon-gray.png" className="w-14 h-14 mb-8 opacity-70" alt="Logo" />
       
-      <h1 className="text-4xl md:text-6xl font-black text-white leading-[0.8] tracking-[-0.06em] uppercase mb-8">
-        VERTEX <br /> BIOLABS
-      </h1>
+      <Reveal3D>
+        <h1 className="text-4xl md:text-6xl font-black text-white leading-[0.8] tracking-[-0.06em] uppercase mb-8">
+          VERTEX <br /> BIOLABS
+        </h1>
+      </Reveal3D>
       
-      <p className="text-xl md:text-3xl text-gray-400 font-medium tracking-tight mb-12">
-        Advancing Research with <span className="text-[#0ea5e9] font-bold">Vertex Biolabs</span> Innovation!
-      </p>
+      <FadeUp delay={0.3}>
+        <p className="text-xl md:text-3xl text-gray-400 font-medium tracking-tight mb-12">
+          Advancing Research with <span className="text-[#0ea5e9] font-bold">Vertex Biolabs</span> Innovation!
+        </p>
+      </FadeUp>
       
-      <Link href="/products" className="group relative bg-gradient-to-r from-[#0ea5e9] to-[#38bdf8] text-white px-14 py-5 rounded-xl font-black uppercase text-sm tracking-[0.2em] shadow-[0_15px_40px_rgba(14,165,233,0.3)] transition-all hover:scale-105">
+      <FadeUp delay={0.5}>
+      <Magnetic>
+      <Link href="/products" className="group relative block overflow-hidden bg-gradient-to-r from-[#0ea5e9] to-[#38bdf8] text-white px-14 py-5 rounded-xl font-black uppercase text-sm tracking-[0.2em] shadow-[0_15px_40px_rgba(14,165,233,0.3)] transition-all hover:scale-105">
+        <Shimmer />
         <span className="flex items-center gap-3">
             Browse All Products <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />
         </span>
       </Link>
+      </Magnetic>
+      </FadeUp>
     </div>
 
     {/* ARCHE DROITE (RECOVERY) */}
+    <Float3D className="hidden lg:block flex-shrink-0" duration={7}>
     <motion.div 
       initial={{ opacity: 0, x: 40 }} 
       animate={{ opacity: 1, x: 0 }} 
-      className="hidden lg:block relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#00A699] flex-shrink-0"
+      className="relative w-[280px] h-[300px] rounded-t-full overflow-hidden bg-[#00A699]"
     >
       <img src="/hero-left-arch.png" className="w-full h-full object-contain p-1 scale-110 z-10 relative" alt="" />
       <div className="absolute bottom-6 left-0 w-full text-center">
        
       </div>
     </motion.div>
+    </Float3D>
 
   </div>
+
+  </HeroScrollFade>
 
   {/* MARQUEE FOOTER */}
   <div className="absolute bottom-0 w-full bg-[#1e3a8a] py-4 z-20 overflow-hidden border-t border-white/10">
@@ -112,27 +137,35 @@ export default function HomePage() {
       <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center mb-20">
-            <h2 className="text-4xl font-black uppercase tracking-tighter">Best Selling Products</h2>
+            <h2 className="text-4xl font-black uppercase tracking-tighter"><SplitText lines={['Best Selling Products']} /></h2>
+            <DrawLine className="mx-auto mt-6" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-[#1e3a8a] rounded-xl p-10 flex flex-col justify-end min-h-[450px] relative overflow-hidden group">
-               <div className="absolute top-10 left-10 opacity-20 group-hover:scale-110 transition-transform duration-700"><img src="/leaf-bg.png" className="w-32" /></div>
-               <div className="relative z-10"><img src="/leaf-white.png" className="w-8 mb-6" /><h3 className="text-3xl font-black text-white leading-tight">Vertex<br/>Biolabs<br/>Research</h3></div>
-            </div>
-            {products.map((product) => (
-              <div key={product.id} className="group border border-gray-100 rounded-xl p-6 flex flex-col hover:shadow-xl transition-all">
-                <div className="aspect-square mb-6 overflow-hidden bg-[#F7F7F7] rounded-lg">
-                  <img src={product.main_image_url} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform" />
-                </div>
-                <p className="text-[#0ea5e9] text-[10px] font-bold uppercase mb-1">{product.category_name || 'Uncategorized'}</p>
-                <h4 className="font-bold text-sm mb-4 h-10">{product.name}</h4>
-                <p className="text-[#A13BB4] font-black text-lg mb-6">£{product.price}</p>
-                <button onClick={() => addToCart(product)} className="w-full border border-gray-200 py-3 rounded-md text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-colors"><ShoppingCart size={14} /> Add To Cart</button>
-              </div>
+            <Reveal3D>
+              <TiltCard className="bg-[#1e3a8a] rounded-xl p-10 flex flex-col justify-end min-h-[450px] h-full relative overflow-hidden group">
+                 <div className="absolute top-10 left-10 opacity-20 group-hover:scale-110 transition-transform duration-700"><img src="/leaf-bg.png" className="w-32" /></div>
+                 <div className="relative z-10"><img src="/leaf-white.png" className="w-8 mb-6" /><h3 className="text-3xl font-black text-white leading-tight">Vertex<br/>Biolabs<br/>Research</h3></div>
+              </TiltCard>
+            </Reveal3D>
+            {products.map((product, index) => (
+              <Reveal3D key={product.id} delay={(index + 1) * 0.12}>
+                <TiltCard className="group relative bg-white border border-gray-100 rounded-xl p-6 flex flex-col h-full hover:shadow-xl transition-shadow">
+                  <div className="aspect-square mb-6 bg-[#F7F7F7] rounded-lg" style={{ transform: 'translateZ(40px)' }}>
+                    <img src={product.main_image_url} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform" />
+                  </div>
+                  <p className="text-[#0ea5e9] text-[10px] font-bold uppercase mb-1">{product.category_name || 'Uncategorized'}</p>
+                  <h4 className="font-bold text-sm mb-4 h-10">{product.name}</h4>
+                  <p className="text-[#A13BB4] font-black text-lg mb-6" style={{ transform: 'translateZ(25px)' }}>£{product.price}</p>
+                  <button onClick={() => addToCart(product)} className="w-full border border-gray-200 py-3 rounded-md text-[10px] font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-black hover:text-white transition-colors"><ShoppingCart size={14} /> Add To Cart</button>
+                </TiltCard>
+              </Reveal3D>
             ))}
           </div>
         </div>
       </section>
+
+      {/* --- TEXTE ÉPINGLÉ QUI S'ILLUMINE AU SCROLL --- */}
+      <ScrollHighlightText text="Engineered for research precision. 100% lab tested. Pure compounds, supplied in controlled batches for laboratory analysis." />
 
       {/* --- SECTION 1: RETATRUTIDE EVALUATION (Maquette 2) --- */}
       <section className="py-24 bg-[#F9F9F9] overflow-hidden">
@@ -142,7 +175,8 @@ export default function HomePage() {
               <div className="w-12 h-12 bg-[#8BC34A] rounded-lg flex items-center justify-center mb-8 shadow-lg shadow-green-200">
                 <img src="/leaf-white.png" className="w-6 h-6" alt="Organic" />
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight tracking-tighter">Retatrutide – Pre-Filled Pen<br/>Evaluation</h2>
+              <h2 className="text-4xl md:text-5xl font-black mb-8 leading-tight tracking-tighter"><SplitText lines={['Retatrutide – Pre-Filled Pen', 'Evaluation']} /></h2>
+              <FadeUp delay={0.2}>
               <p className="text-gray-500 leading-relaxed mb-6 max-w-lg">
                 Part of <span className="text-[#0ea5e9] font-bold">Vertex Biolabs'</span> ongoing research program into advanced GLP-1 multi-agonist compounds. This formulation is supplied in controlled batches for laboratory analysis of stability, compound behaviour, and injector system performance.
               </p>
@@ -150,13 +184,20 @@ export default function HomePage() {
               <Link href="/about" className="bg-[#0ea5e9] text-white px-8 py-4 rounded-lg font-black uppercase text-[10px] tracking-widest flex items-center gap-3 w-fit hover:bg-black transition-all shadow-xl shadow-sky-200">
                 About Store <ArrowRight size={14} />
               </Link>
+              </FadeUp>
             </div>
             <div className="lg:w-1/2 relative">
               <div className="relative z-10 scale-110 lg:translate-x-10">
-                <img src="/supplement-box.png" alt="Supplement Box" className="w-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.15)]" />
+                <ScrollScale>
+                  <Float3D tilt={14}>
+                    <img src="/supplement-box.png" alt="Supplement Box" className="w-full drop-shadow-[0_35px_35px_rgba(0,0,0,0.15)]" />
+                  </Float3D>
+                </ScrollScale>
               </div>
               {/* Forme ondulée en arrière plan comme sur la maquette */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#0ea5e9]/5 -z-0 rounded-[40%_60%_70%_30%/40%_50%_60%_70%] animate-pulse" />
+              <ParallaxY className="absolute inset-0">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#0ea5e9]/5 -z-0 rounded-[40%_60%_70%_30%/40%_50%_60%_70%] animate-pulse" />
+              </ParallaxY>
             </div>
           </div>
         </div>
@@ -165,10 +206,10 @@ export default function HomePage() {
       {/* --- SECTION 2: PROMO BANNER (Maquette 3) --- */}
       <section className="py-10">
         <div className="container mx-auto px-6">
-          <div className="bg-[#050A30] rounded-3xl overflow-hidden flex flex-col md:flex-row items-center relative min-h-[380px]">
+          <ExpandOnScroll className="bg-[#050A30] rounded-3xl overflow-hidden flex flex-col md:flex-row items-center relative min-h-[380px]">
             <div className="flex-1 p-12 lg:p-20 z-10">
-              <h3 className="text-white text-4xl md:text-5xl font-black mb-4 leading-none tracking-tighter">No Prep. No Hassle.<br/>Just Precision Dosing.</h3>
-              <p className="text-[#0ea5e9] text-2xl font-black mb-10">Upto 35% off today!</p>
+              <h3 className="text-white text-4xl md:text-5xl font-black mb-4 leading-none tracking-tighter"><SplitText lines={['No Prep. No Hassle.', 'Just Precision Dosing.']} /></h3>
+              <FadeUp delay={0.4}><p className="text-[#0ea5e9] text-2xl font-black mb-10">Upto 35% off today!</p></FadeUp>
               <Link href="/products" className="inline-flex items-center gap-3 border-2 border-white/20 text-white px-8 py-3 rounded-full font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all">
                 Shop Now <ArrowRight size={14} />
               </Link>
@@ -177,10 +218,12 @@ export default function HomePage() {
                <div className="absolute left-0 top-0 bottom-0 w-24 bg-[#050A30] hidden md:block" style={{ clipPath: 'polygon(0 0, 0% 100%, 100% 0)' }} />
                <div className="relative z-10 flex flex-col items-center">
                  <h4 className="text-white text-7xl font-black opacity-40 absolute -left-20 top-1/2 -translate-y-1/2 rotate-[-90deg]">Vertex Biolabs</h4>
-                 <img src="/phone-app.png" className="w-48 lg:w-64 drop-shadow-2xl translate-y-8" alt="App Preview" />
+                 <Float3D duration={5} tilt={16}>
+                   <img src="/phone-app.png" className="w-48 lg:w-64 drop-shadow-2xl translate-y-8" alt="App Preview" />
+                 </Float3D>
                </div>
             </div>
-          </div>
+          </ExpandOnScroll>
         </div>
       </section>
 
@@ -189,27 +232,27 @@ export default function HomePage() {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="flex items-center gap-6">
-              <div className="w-16 h-16 border-2 border-black/10 rounded-2xl flex items-center justify-center shrink-0">
+              <FlipIn className="w-16 h-16 border-2 border-black/10 rounded-2xl flex items-center justify-center shrink-0">
                 <Zap className="text-black" size={28} />
-              </div>
+              </FlipIn>
               <div>
                 <h5 className="font-black text-sm uppercase tracking-wider mb-1">Fastest Delivery</h5>
                 <p className="text-[11px] font-bold text-black/50 uppercase">Donec eget vestibulum quam</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
-              <div className="w-16 h-16 border-2 border-black/10 rounded-2xl flex items-center justify-center shrink-0">
+              <FlipIn delay={0.15} className="w-16 h-16 border-2 border-black/10 rounded-2xl flex items-center justify-center shrink-0">
                 <ShieldCheck className="text-black" size={28} />
-              </div>
+              </FlipIn>
               <div>
                 <h5 className="font-black text-sm uppercase tracking-wider mb-1">Quality Products</h5>
                 <p className="text-[11px] font-bold text-black/50 uppercase">100% Lab Tested & Verified</p>
               </div>
             </div>
             <div className="flex items-center gap-6">
-              <div className="w-16 h-16 border-2 border-black/10 rounded-2xl flex items-center justify-center shrink-0">
+              <FlipIn delay={0.3} className="w-16 h-16 border-2 border-black/10 rounded-2xl flex items-center justify-center shrink-0">
                 <Smartphone className="text-black" size={28} />
-              </div>
+              </FlipIn>
               <div>
                 <h5 className="font-black text-sm uppercase tracking-wider mb-1">Secure Payments</h5>
                 <p className="text-[11px] font-bold text-black/50 uppercase">Encrypted Transaction Data</p>
@@ -240,6 +283,7 @@ export default function HomePage() {
       <section className="relative bg-[#050505] py-32 overflow-hidden border-t border-white/5">
         {/* Effet de lueur subtile en arrière-plan */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#0ea5e9]/10 blur-[120px] rounded-full pointer-events-none" />
+        <Scene3D className="opacity-40" />
         
         <div className="container mx-auto px-6 relative z-10">
           <div className="flex flex-col items-center text-center">
@@ -263,7 +307,9 @@ export default function HomePage() {
             >
               <h2 className="text-white text-5xl md:text-7xl font-black font-semibold  uppercase tracking-[-0.04em] flex items-center gap-3">
                 VERTEX 
-                <img src="/leaf-white.png" className="w-12 h-12 md:w-16 md:h-16  object-contain" alt="Labs Logo" /> 
+                <Spin3D>
+                  <img src="/leaf-white.png" className="w-12 h-12 md:w-16 md:h-16  object-contain" alt="Labs Logo" />
+                </Spin3D>
                 BIOLABS
               </h2>
             </motion.div>
@@ -287,7 +333,8 @@ export default function HomePage() {
   viewport={{ once: true }}
   transition={{ delay: 0.3 }}
 >
-  <Link 
+  <Magnetic>
+  <Link
     href="/products" 
     className="group relative inline-flex items-center justify-center px-10 py-4 
                border border-white/60 rounded-lg overflow-hidden
@@ -303,6 +350,7 @@ export default function HomePage() {
       <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
     </span>
   </Link>
+  </Magnetic>
 </motion.div>
 
           </div>

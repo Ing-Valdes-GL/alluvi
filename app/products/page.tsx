@@ -125,7 +125,6 @@ export default function Header() {
                 <Link href="/products">SHOP</Link>
                 <Link href="/orders">MY ORDERS</Link>
                 <Link href="/chat">SUPPORT</Link>
-                <Link href="/admin" className="bg-white/10 px-3 py-1 rounded">ADMIN PANEL</Link>
               </div>
             </div>
             <div className="hidden sm:flex items-center gap-3 text-white">

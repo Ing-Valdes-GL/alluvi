@@ -2,6 +2,10 @@ import './globals.css'
 import { Inter } from 'next/font/google'
 import { Metadata } from 'next'
 import { ThemeProvider } from '../components/ThemeProvider'
+import AppleReveal from '../components/AppleReveal'
+
+// Applique le thème enregistré avant le premier affichage (évite le flash clair en mode sombre)
+const themeScript = `try{var t=localStorage.getItem('theme-preference');if(t==='system')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';if(t==='dark')document.documentElement.classList.add('dark')}catch(e){}`
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -55,12 +59,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body className={`${inter.className} bg-white dark:bg-gray-900 transition-colors`}>
         <ThemeProvider 
           attribute="class" 
           defaultTheme="light" 
           enableSystem 
         >
+          <AppleReveal />
           {children}
         </ThemeProvider>
       </body>
